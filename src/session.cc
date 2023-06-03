@@ -1,6 +1,6 @@
-#include "session.h"
+#include "space_traders_cpp/session.h"
 
-#include "utility.h"
+#include "space_traders_cpp/utility.h"
 
 using json = nlohmann::json;
 
