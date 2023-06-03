@@ -16,5 +16,6 @@ file(GLOB all_SRCS
 add_library(${PROJECT_NAME} ${all_SRCS})
 
 find_package(OpenSSL COMPONENTS Crypto SSL REQUIRED)
-target_include_directories(${PROJECT_NAME} PRIVATE ./)
+target_include_directories(${PROJECT_NAME} PRIVATE ./include)
+target_include_directories(${PROJECT_NAME} PRIVATE ./third_party)
 target_link_libraries(${PROJECT_NAME} PRIVATE OpenSSL::SSL OpenSSL::Crypto)
