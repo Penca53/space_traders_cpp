@@ -1,6 +1,6 @@
 #pragma once
 
-#include "json.h"
+#include "nlohmann/json.hpp"
 
 enum class ShipType {
   SHIP_PROBE,

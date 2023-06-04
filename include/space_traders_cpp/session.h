@@ -1,7 +1,7 @@
 #pragma once
 
-#include "httplib.h"
-#include "json.h"
+#include "cpp-httplib/httplib.h"
+#include "nlohmann/json.hpp"
 #include "space_traders_cpp/api/agents/my_agent.h"
 #include "space_traders_cpp/api/factions/get_faction.h"
 #include "space_traders_cpp/api/factions/list_factions.h"

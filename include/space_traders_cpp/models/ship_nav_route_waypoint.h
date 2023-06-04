@@ -1,6 +1,6 @@
 #pragma once
 
-#include "json.h"
+#include "nlohmann/json.hpp"
 
 #include "space_traders_cpp/models/waypoint_type.h"
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "json.h"
+#include "nlohmann/json.hpp"
 
 #include "space_traders_cpp/models/market_trade_good.h"
 #include "space_traders_cpp/models/market_transaction.h"
