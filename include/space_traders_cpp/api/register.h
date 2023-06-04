@@ -8,15 +8,48 @@
 
 struct RegisterRequest {
  public:
-  NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(RegisterRequest, faction, symbol,
-                                              email)
+  struct PathParams {};
+  struct QueryParams {};
+  struct Body {
+   public:
+    friend void to_json(nlohmann::json& j, const Body& b) {
+      j["faction"] = b.faction;
+      j["symbol"] = b.symbol;
+      j["email"] = b.email;
+    }
+    friend void from_json(const nlohmann::json& j, Body& b) {
+      j.at("faction").get_to(b.faction);
+      j.at("symbol").get_to(b.symbol);
+      if (j.contains("email")) {
+        j.at("email").get_to(b.email);
+      }
+    }
+
+   public:
+    std::string faction;
+    std::string symbol;
+    std::optional<std::string> email;
+  };
 
  public:
-  std::string faction;
-  std::string symbol;
-  std::optional<std::string> email;
+  explicit RegisterRequest() = default;
+  explicit RegisterRequest(PathParams path_params, QueryParams query_params,
+                           Body body);
+
+ public:
+  std::string FormattedPath() const;
+
+ public:
+  static const std::string kRelativePath;
+
+ public:
+  PathParams path_params{};
+  QueryParams query_params{};
+  Body body{};
 };
+
 struct RegisterResponse {
+ private:
   struct RegisterData {
    public:
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(RegisterData, agent, contract, faction,
@@ -32,5 +65,8 @@ struct RegisterResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(RegisterResponse, data)
 
  public:
-  RegisterData data;
+  static constexpr int32_t kValidStatus = kPostOkStatus;
+
+ public:
+  RegisterData data{};
 };

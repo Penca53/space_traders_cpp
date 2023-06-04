@@ -4,12 +4,14 @@
 
 using json = nlohmann::json;
 
+const std::string Session::kBasePath = "/v2";
+
 Session::Session() : client_("https://api.spacetraders.io") {}
 Session::Session(std::string token)
     : token_(token), client_("https://api.spacetraders.io") {}
 
 bool Session::IsAPIOnline() {
-  auto status_res = Status();
+  Result<StatusResponse, RequestError> status_res = Status(StatusRequest{});
   if (status_res.IsErr()) {
     return false;
   }
@@ -21,9 +23,9 @@ Result<MyAgentResponse, RequestError> Session::Login(const LoginRequest& req) {
   token_ = req.token;
   return MyAgent();
 }
-Result<StatusResponse, RequestError> Session::Status() {
-  httplib::Result result = MakeGet("/v2/");
-  if (result->status != 200) {
+Result<StatusResponse, RequestError> Session::Status(const StatusRequest& req) {
+  httplib::Result result = MakeGet(kBasePath + req.FormattedPath());
+  if (result->status != StatusResponse::kValidStatus) {
     RequestError err(result->status, result->body);
     return Err(err);
   }
@@ -34,9 +36,9 @@ Result<StatusResponse, RequestError> Session::Status() {
 }
 Result<RegisterResponse, RequestError> Session::Register(
     const RegisterRequest& req) {
-  json j = req;
-  httplib::Result result = MakePost("/v2/register", j.dump());
-  if (result->status != 201) {
+  json j = req.body;
+  httplib::Result result = MakePost(kBasePath + req.FormattedPath(), j.dump());
+  if (result->status != RegisterResponse::kValidStatus) {
     RequestError err(result->status, result->body);
     return Err(err);
   }

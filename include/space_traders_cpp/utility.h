@@ -1,9 +1,9 @@
 #pragma once
 
-#include "json.h"
-
 #include <optional>
 #include <variant>
+
+#include "json.h"
 
 template <typename T>
 struct Ok {
@@ -31,6 +31,9 @@ struct Result {
  private:
   std::variant<T, E> value_;
 };
+
+static constexpr int32_t kGetOkStatus = 200;
+static constexpr int32_t kPostOkStatus = 201;
 
 NLOHMANN_JSON_NAMESPACE_BEGIN
 template <typename T>

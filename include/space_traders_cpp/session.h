@@ -1,8 +1,7 @@
 #pragma once
 
-#include <httplib.h>
-#include <json.h>
-
+#include "httplib.h"
+#include "json.h"
 #include "space_traders_cpp/api/agents/my_agent.h"
 #include "space_traders_cpp/api/factions/get_faction.h"
 #include "space_traders_cpp/api/factions/list_factions.h"
@@ -42,7 +41,7 @@ class Session {
 
   Result<MyAgentResponse, RequestError> Login(const LoginRequest& req);
 
-  Result<StatusResponse, RequestError> Status();
+  Result<StatusResponse, RequestError> Status(const StatusRequest& req);
   Result<RegisterResponse, RequestError> Register(const RegisterRequest& req);
   Result<ListFactionsResponse, RequestError> ListFactions(
       const ListFactionsRequest& req);
@@ -72,4 +71,5 @@ class Session {
  private:
   std::string token_;
   httplib::Client client_;
+  static const std::string kBasePath;
 };

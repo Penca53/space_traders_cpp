@@ -1,8 +1,33 @@
 #pragma once
 
 #include "json.h"
+#include "space_traders_cpp/utility.h"
+
+struct StatusRequest {
+ public:
+  struct PathParams {};
+  struct QueryParams {};
+  struct Body {};
+
+ public:
+  explicit StatusRequest() = default;
+  explicit StatusRequest(PathParams path_params, QueryParams query_params,
+                         Body body);
+
+ public:
+  std::string FormattedPath() const;
+
+ public:
+  static const std::string kRelativePath;
+
+ public:
+  PathParams path_params{};
+  QueryParams query_params{};
+  Body body{};
+};
 
 struct StatusResponse {
+ private:
   struct Stats {
    public:
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Stats, agents, ships, systems, waypoints)
@@ -75,13 +100,16 @@ struct StatusResponse {
                                  announcements, links)
 
  public:
+  static constexpr int32_t kValidStatus = kGetOkStatus;
+
+ public:
   std::string status;
   std::string version;
   std::string resetDate;
   std::string description;
-  Stats stats;
-  Leaderboards leaderboards;
-  ServerResets serverResets;
+  Stats stats{};
+  Leaderboards leaderboards{};
+  ServerResets serverResets{};
   std::vector<Announcement> announcements;
   std::vector<Link> links;
 };
