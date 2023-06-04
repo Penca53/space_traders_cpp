@@ -17,7 +17,7 @@ bool Session::IsAPIOnline() {
 }
 bool Session::IsLoggedIn() { return MyAgent().IsOk(); }
 
-Result<MyAgentResponse, RequestError> Session::Login(LoginRequest& req) {
+Result<MyAgentResponse, RequestError> Session::Login(const LoginRequest& req) {
   token_ = req.token;
   return MyAgent();
 }
@@ -32,7 +32,8 @@ Result<StatusResponse, RequestError> Session::Status() {
   StatusResponse status_response = j.get<StatusResponse>();
   return Ok(status_response);
 }
-Result<RegisterResponse, RequestError> Session::Register(RegisterRequest& req) {
+Result<RegisterResponse, RequestError> Session::Register(
+    const RegisterRequest& req) {
   json j = req;
   httplib::Result result = MakePost("/v2/register", j.dump());
   if (result->status != 201) {
@@ -45,7 +46,7 @@ Result<RegisterResponse, RequestError> Session::Register(RegisterRequest& req) {
   return Ok(register_response);
 }
 Result<ListFactionsResponse, RequestError> Session::ListFactions(
-    ListFactionsRequest& req) {
+    const ListFactionsRequest& req) {
   httplib::Result result = MakeGet(
       "/v2/factions", httplib::Params{{"limit", std::to_string(req.limit)},
                                       {"page", std::to_string(req.page)}});
@@ -60,7 +61,7 @@ Result<ListFactionsResponse, RequestError> Session::ListFactions(
   return Ok(list_factions_response);
 }
 Result<GetFactionResponse, RequestError> Session::GetFaction(
-    GetFactionRequest& req) {
+    const GetFactionRequest& req) {
   httplib::Result result = MakeGet("/v2/factions/" + req.factionSymbol);
   if (result->status != 200) {
     RequestError err(result->status, result->body);
@@ -73,7 +74,7 @@ Result<GetFactionResponse, RequestError> Session::GetFaction(
 }
 
 Result<ListSystemsResponse, RequestError> Session::ListSystems(
-    ListSystemsRequest& req) {
+    const ListSystemsRequest& req) {
   httplib::Result result = MakeGet(
       "/v2/systems", httplib::Params{{"limit", std::to_string(req.limit)},
                                      {"page", std::to_string(req.page)}});
@@ -84,16 +85,11 @@ Result<ListSystemsResponse, RequestError> Session::ListSystems(
   }
 
   json j = j.parse(result->body);
-  try {
-    ListSystemsResponse list_systems_response = j.get<ListSystemsResponse>();
-    return Ok(list_systems_response);
-  } catch (const std::exception& e) {
-    std::cerr << e.what() << '\n';
-    return Ok(ListSystemsResponse{});
-  }
+  ListSystemsResponse list_systems_response = j.get<ListSystemsResponse>();
+  return Ok(list_systems_response);
 }
 Result<GetSystemResponse, RequestError> Session::GetSystem(
-    GetSystemRequest& req) {
+    const GetSystemRequest& req) {
   httplib::Result result = MakeGet("/v2/systems/" + req.systemSymbol);
   if (result->status != 200) {
     RequestError err(result->status, result->body);
@@ -105,7 +101,7 @@ Result<GetSystemResponse, RequestError> Session::GetSystem(
   return Ok(get_system_response);
 }
 Result<ListWaypointsResponse, RequestError> Session::ListWaypoints(
-    ListWaypointsRequest& req) {
+    const ListWaypointsRequest& req) {
   httplib::Result result =
       MakeGet("/v2/systems/" + req.systemSymbol + "/waypoints",
               httplib::Params{{"limit", std::to_string(req.limit)},
@@ -122,7 +118,7 @@ Result<ListWaypointsResponse, RequestError> Session::ListWaypoints(
   return Ok(list_waypoints_response);
 }
 Result<GetWaypointResponse, RequestError> Session::GetWaypoint(
-    GetWaypointRequest& req) {
+    const GetWaypointRequest& req) {
   httplib::Result result = MakeGet("/v2/systems/" + req.systemSymbol +
                                    "/waypoints/" + req.waypointSymbol);
   if (result->status != 200) {

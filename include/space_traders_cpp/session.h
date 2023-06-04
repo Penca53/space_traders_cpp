@@ -40,20 +40,22 @@ class Session {
   bool IsAPIOnline();
   bool IsLoggedIn();
 
-  Result<MyAgentResponse, RequestError> Login(LoginRequest& req);
+  Result<MyAgentResponse, RequestError> Login(const LoginRequest& req);
 
   Result<StatusResponse, RequestError> Status();
-  Result<RegisterResponse, RequestError> Register(RegisterRequest& req);
+  Result<RegisterResponse, RequestError> Register(const RegisterRequest& req);
   Result<ListFactionsResponse, RequestError> ListFactions(
-      ListFactionsRequest& req);
-  Result<GetFactionResponse, RequestError> GetFaction(GetFactionRequest& req);
+      const ListFactionsRequest& req);
+  Result<GetFactionResponse, RequestError> GetFaction(
+      const GetFactionRequest& req);
   Result<ListSystemsResponse, RequestError> ListSystems(
-      ListSystemsRequest& req);
-  Result<GetSystemResponse, RequestError> GetSystem(GetSystemRequest& req);
+      const ListSystemsRequest& req);
+  Result<GetSystemResponse, RequestError> GetSystem(
+      const GetSystemRequest& req);
   Result<ListWaypointsResponse, RequestError> ListWaypoints(
-      ListWaypointsRequest& req);
+      const ListWaypointsRequest& req);
   Result<GetWaypointResponse, RequestError> GetWaypoint(
-      GetWaypointRequest& req);
+      const GetWaypointRequest& req);
   Result<MyAgentResponse, RequestError> MyAgent();
 
  private:
