@@ -7,6 +7,6 @@ StatusRequest::StatusRequest(PathParams path_params, QueryParams query_params,
     : path_params_(path_params), query_params_(query_params), body_(body) {}
 
 std::string StatusRequest::FormattedPath() const { return kRelativePath; }
-httplib::Params GetFactionRequest::HttplibParams() const {
+httplib::Params StatusRequest::HttplibParams() const {
   return httplib::Params{};
 }

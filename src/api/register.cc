@@ -7,6 +7,6 @@ RegisterRequest::RegisterRequest(PathParams path_params,
     : path_params_(path_params), query_params_(query_params), body_(body) {}
 
 std::string RegisterRequest::FormattedPath() const { return kRelativePath; }
-httplib::Params GetFactionRequest::HttplibParams() const {
+httplib::Params RegisterRequest::HttplibParams() const {
   return httplib::Params{};
 }

@@ -2,8 +2,8 @@
 
 const std::string MyAgentRequest::kRelativePath = "/my/agent";
 
-MyAgentRequest::StatusRequest(PathParams path_params, QueryParams query_params,
-                              Body body)
+MyAgentRequest::MyAgentRequest(PathParams path_params, QueryParams query_params,
+                               Body body)
     : path_params_(path_params), query_params_(query_params), body_(body) {}
 
 std::string MyAgentRequest::FormattedPath() const { return kRelativePath; }
