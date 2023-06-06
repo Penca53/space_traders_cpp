@@ -17,11 +17,11 @@ bool Session::IsAPIOnline() {
   }
   return status_res.Ok().status.find("online") != std::string::npos;
 }
-bool Session::IsLoggedIn() { return MyAgent().IsOk(); }
+bool Session::IsLoggedIn() { return MyAgent(MyAgentRequest{}).IsOk(); }
 
 Result<MyAgentResponse, RequestError> Session::Login(const LoginRequest& req) {
   token_ = req.token;
-  return MyAgent();
+  return MyAgent(MyAgentRequest{});
 }
 Result<StatusResponse, RequestError> Session::Status(const StatusRequest& req) {
   httplib::Result result = MakeGet(kBasePath + req.FormattedPath());
@@ -49,11 +49,10 @@ Result<RegisterResponse, RequestError> Session::Register(
 }
 Result<ListFactionsResponse, RequestError> Session::ListFactions(
     const ListFactionsRequest& req) {
-  httplib::Result result = MakeGet(
-      "/v2/factions", httplib::Params{{"limit", std::to_string(req.limit)},
-                                      {"page", std::to_string(req.page)}});
+  httplib::Result result =
+      MakeGet(kBasePath + req.FormattedPath(), req.HttplibParams());
 
-  if (result->status != 200) {
+  if (result->status != ListFactionsResponse::kValidStatus) {
     RequestError err(result->status, result->body);
     return Err(err);
   }
@@ -64,8 +63,8 @@ Result<ListFactionsResponse, RequestError> Session::ListFactions(
 }
 Result<GetFactionResponse, RequestError> Session::GetFaction(
     const GetFactionRequest& req) {
-  httplib::Result result = MakeGet("/v2/factions/" + req.factionSymbol);
-  if (result->status != 200) {
+  httplib::Result result = MakeGet(kBasePath + req.FormattedPath());
+  if (result->status != GetFactionResponse::kValidStatus) {
     RequestError err(result->status, result->body);
     return Err(err);
   }
@@ -77,11 +76,10 @@ Result<GetFactionResponse, RequestError> Session::GetFaction(
 
 Result<ListSystemsResponse, RequestError> Session::ListSystems(
     const ListSystemsRequest& req) {
-  httplib::Result result = MakeGet(
-      "/v2/systems", httplib::Params{{"limit", std::to_string(req.limit)},
-                                     {"page", std::to_string(req.page)}});
+  httplib::Result result =
+      MakeGet(kBasePath + req.FormattedPath(), req.HttplibParams());
 
-  if (result->status != 200) {
+  if (result->status != ListSystemsResponse::kValidStatus) {
     RequestError err(result->status, result->body);
     return Err(err);
   }
@@ -92,8 +90,8 @@ Result<ListSystemsResponse, RequestError> Session::ListSystems(
 }
 Result<GetSystemResponse, RequestError> Session::GetSystem(
     const GetSystemRequest& req) {
-  httplib::Result result = MakeGet("/v2/systems/" + req.systemSymbol);
-  if (result->status != 200) {
+  httplib::Result result = MakeGet(kBasePath + req.FormattedPath());
+  if (result->status != GetSystemResponse::kValidStatus) {
     RequestError err(result->status, result->body);
     return Err(err);
   }
@@ -105,11 +103,9 @@ Result<GetSystemResponse, RequestError> Session::GetSystem(
 Result<ListWaypointsResponse, RequestError> Session::ListWaypoints(
     const ListWaypointsRequest& req) {
   httplib::Result result =
-      MakeGet("/v2/systems/" + req.systemSymbol + "/waypoints",
-              httplib::Params{{"limit", std::to_string(req.limit)},
-                              {"page", std::to_string(req.page)}});
+      MakeGet(kBasePath + req.FormattedPath(), req.HttplibParams());
 
-  if (result->status != 200) {
+  if (result->status != ListWaypointsResponse::kValidStatus) {
     RequestError err(result->status, result->body);
     return Err(err);
   }
@@ -121,9 +117,8 @@ Result<ListWaypointsResponse, RequestError> Session::ListWaypoints(
 }
 Result<GetWaypointResponse, RequestError> Session::GetWaypoint(
     const GetWaypointRequest& req) {
-  httplib::Result result = MakeGet("/v2/systems/" + req.systemSymbol +
-                                   "/waypoints/" + req.waypointSymbol);
-  if (result->status != 200) {
+  httplib::Result result = MakeGet(req.FormattedPath());
+  if (result->status != GetWaypointResponse::kValidStatus) {
     RequestError err(result->status, result->body);
     return Err(err);
   }
@@ -132,10 +127,47 @@ Result<GetWaypointResponse, RequestError> Session::GetWaypoint(
   GetWaypointResponse get_waypoint_response = j.get<GetWaypointResponse>();
   return Ok(get_waypoint_response);
 }
+Result<GetMarketResponse, RequestError> Session::GetMarket(
+    const GetMarketRequest& req) {
+  httplib::Result result = MakeGet(req.FormattedPath());
+  if (result->status != GetMarketResponse::kValidStatus) {
+    RequestError err(result->status, result->body);
+    return Err(err);
+  }
 
-Result<MyAgentResponse, RequestError> Session::MyAgent() {
-  httplib::Result result = MakeAuthGet("/v2/my/agent");
-  if (result->status != 200) {
+  json j = j.parse(result->body);
+  GetMarketResponse get_market_response = j.get<GetMarketResponse>();
+  return Ok(get_market_response);
+}
+Result<GetShipyardResponse, RequestError> Session::GetShipyard(
+    const GetShipyardRequest& req) {
+  httplib::Result result = MakeGet(req.FormattedPath());
+  if (result->status != GetShipyardResponse::kValidStatus) {
+    RequestError err(result->status, result->body);
+    return Err(err);
+  }
+
+  json j = j.parse(result->body);
+  GetShipyardResponse get_shipyard_response = j.get<GetShipyardResponse>();
+  return Ok(get_shipyard_response);
+}
+Result<GetJumpGateResponse, RequestError> Session::GetJumpGate(
+    const GetJumpGateRequest& req) {
+  httplib::Result result = MakeGet(req.FormattedPath());
+  if (result->status != GetJumpGateResponse::kValidStatus) {
+    RequestError err(result->status, result->body);
+    return Err(err);
+  }
+
+  json j = j.parse(result->body);
+  GetJumpGateResponse get_jump_gate_response = j.get<GetJumpGateResponse>();
+  return Ok(get_jump_gate_response);
+}
+
+Result<MyAgentResponse, RequestError> Session::MyAgent(
+    const MyAgentRequest& req) {
+  httplib::Result result = MakeAuthGet(req.FormattedPath());
+  if (result->status != MyAgentResponse::kValidStatus) {
     RequestError err(result->status, result->body);
     return Err(err);
   }

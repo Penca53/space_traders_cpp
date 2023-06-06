@@ -7,6 +7,9 @@
 #include "space_traders_cpp/api/factions/list_factions.h"
 #include "space_traders_cpp/api/register.h"
 #include "space_traders_cpp/api/status.h"
+#include "space_traders_cpp/api/systems/get_jump_gate.h"
+#include "space_traders_cpp/api/systems/get_market.h"
+#include "space_traders_cpp/api/systems/get_shipyard.h"
 #include "space_traders_cpp/api/systems/get_system.h"
 #include "space_traders_cpp/api/systems/get_waypoint.h"
 #include "space_traders_cpp/api/systems/list_systems.h"
@@ -55,7 +58,13 @@ class Session {
       const ListWaypointsRequest& req);
   Result<GetWaypointResponse, RequestError> GetWaypoint(
       const GetWaypointRequest& req);
-  Result<MyAgentResponse, RequestError> MyAgent();
+  Result<GetMarketResponse, RequestError> GetMarket(
+      const GetMarketRequest& req);
+  Result<GetShipyardResponse, RequestError> GetShipyard(
+      const GetShipyardRequest& req);
+  Result<GetJumpGateResponse, RequestError> GetJumpGate(
+      const GetJumpGateRequest& req);
+  Result<MyAgentResponse, RequestError> MyAgent(const MyAgentRequest& req);
 
  private:
   httplib::Result MakeGet(std::string path);

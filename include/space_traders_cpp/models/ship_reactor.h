@@ -1,7 +1,6 @@
 #pragma once
 
 #include "nlohmann/json.hpp"
-
 #include "space_traders_cpp/models/ship_requirements.h"
 
 enum class ShipReactorSymbol {
@@ -39,7 +38,7 @@ struct ShipReactor {
       j.at("condition").get_to(sr.condition);
     }
     j.at("powerOutput").get_to(sr.powerOutput);
-    j.at("requirements").get_to(sf.requirements);
+    j.at("requirements").get_to(sr.requirements);
   }
 
  public:

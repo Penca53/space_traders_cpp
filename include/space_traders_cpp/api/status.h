@@ -16,6 +16,7 @@ struct StatusRequest {
 
  public:
   std::string FormattedPath() const;
+  httplib::Params HttplibParams() const;
 
  public:
   static const std::string kRelativePath;

@@ -1,14 +1,13 @@
 #pragma once
 
 #include "nlohmann/json.hpp"
-
 #include "space_traders_cpp/models/shipyard_ship.h"
 #include "space_traders_cpp/models/shipyard_transaction.h"
 
 struct ShipyardShipType {
  public:
-  friend void to_json(nlohmann::json& j, const ShipyardShipType& ssy) {
-    j["type"] = sm.type;
+  friend void to_json(nlohmann::json& j, const ShipyardShipType& sst) {
+    j["type"] = sst.type;
   }
   friend void from_json(const nlohmann::json& j, ShipyardShipType& sst) {
     if (j.contains("type")) {
@@ -22,13 +21,13 @@ struct ShipyardShipType {
 
 struct Shipyard {
  public:
-  friend void to_json(nlohmann::json& j, const ShipMount& s) {
+  friend void to_json(nlohmann::json& j, const Shipyard& s) {
     j["symbol"] = s.symbol;
     j["shipTypes"] = s.shipTypes;
     j["transactions"] = s.transactions;
     j["ships"] = s.ships;
   }
-  friend void from_json(const nlohmann::json& j, ShipMount& s) {
+  friend void from_json(const nlohmann::json& j, Shipyard& s) {
     j.at("symbol").get_to(s.symbol);
     j.at("shipTypes").get_to(s.shipTypes);
     if (j.contains("transactions")) {
