@@ -7,7 +7,7 @@ GetJumpGateRequest::GetJumpGateRequest(PathParams path_params,
     : path_params(path_params), query_params(query_params), body(body) {}
 
 std::string GetJumpGateRequest::FormattedPath() const {
-  return kRelativePath + "/" + path_params.systemSymbol + "/waypoints" +
+  return kRelativePath + "/" + path_params.systemSymbol + "/waypoints/" +
          path_params.waypointSymbol + "/jump-gate";
 }
 httplib::Params GetJumpGateRequest::HttplibParams() const {

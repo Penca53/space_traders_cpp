@@ -117,7 +117,7 @@ Result<ListWaypointsResponse, RequestError> Session::ListWaypoints(
 }
 Result<GetWaypointResponse, RequestError> Session::GetWaypoint(
     const GetWaypointRequest& req) {
-  httplib::Result result = MakeGet(req.FormattedPath());
+  httplib::Result result = MakeGet(kBasePath + req.FormattedPath());
   if (result->status != GetWaypointResponse::kValidStatus) {
     RequestError err(result->status, result->body);
     return Err(err);
@@ -129,7 +129,7 @@ Result<GetWaypointResponse, RequestError> Session::GetWaypoint(
 }
 Result<GetMarketResponse, RequestError> Session::GetMarket(
     const GetMarketRequest& req) {
-  httplib::Result result = MakeGet(req.FormattedPath());
+  httplib::Result result = MakeGet(kBasePath + req.FormattedPath());
   if (result->status != GetMarketResponse::kValidStatus) {
     RequestError err(result->status, result->body);
     return Err(err);
@@ -141,7 +141,7 @@ Result<GetMarketResponse, RequestError> Session::GetMarket(
 }
 Result<GetShipyardResponse, RequestError> Session::GetShipyard(
     const GetShipyardRequest& req) {
-  httplib::Result result = MakeGet(req.FormattedPath());
+  httplib::Result result = MakeGet(kBasePath + req.FormattedPath());
   if (result->status != GetShipyardResponse::kValidStatus) {
     RequestError err(result->status, result->body);
     return Err(err);
@@ -153,7 +153,7 @@ Result<GetShipyardResponse, RequestError> Session::GetShipyard(
 }
 Result<GetJumpGateResponse, RequestError> Session::GetJumpGate(
     const GetJumpGateRequest& req) {
-  httplib::Result result = MakeGet(req.FormattedPath());
+  httplib::Result result = MakeGet(kBasePath + req.FormattedPath());
   if (result->status != GetJumpGateResponse::kValidStatus) {
     RequestError err(result->status, result->body);
     return Err(err);
@@ -166,7 +166,7 @@ Result<GetJumpGateResponse, RequestError> Session::GetJumpGate(
 
 Result<MyAgentResponse, RequestError> Session::MyAgent(
     const MyAgentRequest& req) {
-  httplib::Result result = MakeAuthGet(req.FormattedPath());
+  httplib::Result result = MakeAuthGet(kBasePath + req.FormattedPath());
   if (result->status != MyAgentResponse::kValidStatus) {
     RequestError err(result->status, result->body);
     return Err(err);

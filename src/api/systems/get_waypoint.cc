@@ -7,7 +7,7 @@ GetWaypointRequest::GetWaypointRequest(PathParams path_params,
     : path_params(path_params), query_params(query_params), body(body) {}
 
 std::string GetWaypointRequest::FormattedPath() const {
-  return kRelativePath + "/" + path_params.systemSymbol + "/waypoints" +
+  return kRelativePath + "/" + path_params.systemSymbol + "/waypoints/" +
          path_params.waypointSymbol;
 }
 httplib::Params GetWaypointRequest::HttplibParams() const {

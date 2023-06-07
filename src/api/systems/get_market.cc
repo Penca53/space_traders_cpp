@@ -7,7 +7,7 @@ GetMarketRequest::GetMarketRequest(PathParams path_params,
     : path_params(path_params), query_params(query_params), body(body) {}
 
 std::string GetMarketRequest::FormattedPath() const {
-  return kRelativePath + "/" + path_params.systemSymbol + "/waypoints" +
+  return kRelativePath + "/" + path_params.systemSymbol + "/waypoints/" +
          path_params.waypointSymbol + "/market";
 }
 httplib::Params GetMarketRequest::HttplibParams() const {
