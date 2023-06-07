@@ -1,5 +1,6 @@
 #pragma once
 
+#include "cpp-httplib/httplib.h"
 #include "nlohmann/json.hpp"
 #include "space_traders_cpp/models/meta.h"
 #include "space_traders_cpp/models/waypoint.h"
@@ -42,6 +43,6 @@ struct ListWaypointsResponse {
   static constexpr int32_t kValidStatus = kGetOkStatus;
 
  public:
-  std::vector<System> data;
+  std::vector<Waypoint> data;
   Meta meta;
 };

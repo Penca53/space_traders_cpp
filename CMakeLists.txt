@@ -8,7 +8,7 @@ set(CMAKE_CXX_EXTENSIONS Off)
 
 set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -DCPPHTTPLIB_OPENSSL_SUPPORT -DJSON_ImplicitConversions=OFF")
 
-file(GLOB all_SRCS
+file(GLOB_RECURSE all_SRCS CONFIGURE_DEPENDS
         "${PROJECT_SOURCE_DIR}/include/*.h"
         "${PROJECT_SOURCE_DIR}/src/*.cc"
         )

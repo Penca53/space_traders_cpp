@@ -1,8 +1,8 @@
 #pragma once
 
 #include "nlohmann/json.hpp"
-
 #include "space_traders_cpp/models/ship_requirements.h"
+#include "space_traders_cpp/utility.h"
 
 enum class ShipEngineSymbol {
   ENGINE_IMPULSE_DRIVE_I,

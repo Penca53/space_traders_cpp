@@ -4,7 +4,7 @@ const std::string RegisterRequest::kRelativePath = "/register";
 
 RegisterRequest::RegisterRequest(PathParams path_params,
                                  QueryParams query_params, Body body)
-    : path_params_(path_params), query_params_(query_params), body_(body) {}
+    : path_params(path_params), query_params(query_params), body(body) {}
 
 std::string RegisterRequest::FormattedPath() const { return kRelativePath; }
 httplib::Params RegisterRequest::HttplibParams() const {

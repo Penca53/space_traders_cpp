@@ -1,10 +1,10 @@
 #pragma once
 
 #include "nlohmann/json.hpp"
-
 #include "space_traders_cpp/models/market_trade_good.h"
 #include "space_traders_cpp/models/market_transaction.h"
 #include "space_traders_cpp/models/trade_good.h"
+#include "space_traders_cpp/utility.h"
 
 struct Market {
  public:

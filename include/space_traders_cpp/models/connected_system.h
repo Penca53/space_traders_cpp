@@ -2,6 +2,8 @@
 
 #include "nlohmann/json.hpp"
 #include "space_traders_cpp/models/ship_type.h"
+#include "space_traders_cpp/models/system_type.h"
+#include "space_traders_cpp/utility.h"
 
 struct ConnectedSystem {
  public:
@@ -18,7 +20,6 @@ struct ConnectedSystem {
     j.at("symbol").get_to(cs.symbol);
     j.at("sectorSymbol").get_to(cs.sectorSymbol);
     j.at("type").get_to(cs.type);
-    j.at("factionSymbol").get_to(cs.factionSymbol);
     if (j.contains("factionSymbol")) {
       j.at("factionSymbol").get_to(cs.factionSymbol);
     }

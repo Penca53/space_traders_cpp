@@ -1,8 +1,8 @@
 #pragma once
 
 #include "nlohmann/json.hpp"
-
-#include "space_traders_cpp/models/system.h"
+#include "space_traders_cpp/models/connected_system.h"
+#include "space_traders_cpp/utility.h"
 
 struct JumpGate {
  public:
@@ -22,5 +22,5 @@ struct JumpGate {
  public:
   int64_t jumpRange = 0;
   std::optional<std::string> factionSymbol;
-  std::vector<System> connectedSystems;
+  std::vector<ConnectedSystem> connectedSystems;
 };

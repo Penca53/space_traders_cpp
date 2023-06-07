@@ -1,5 +1,6 @@
 #pragma once
 
+#include "cpp-httplib/httplib.h"
 #include "nlohmann/json.hpp"
 #include "space_traders_cpp/models/shipyard.h"
 #include "space_traders_cpp/utility.h"
