@@ -59,5 +59,8 @@ struct PurchaseCargoResponse {
   static constexpr int32_t kValidStatus = kHttpCreatedStatus;
 
  public:
+  int32_t http_status = 0;
+
+ public:
   Data data{};
 };

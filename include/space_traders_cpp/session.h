@@ -54,11 +54,11 @@ struct LoginRequest {
 
 struct RequestError {
  public:
-  explicit RequestError(int32_t status, std::string body)
-      : status(status), body(body) {}
+  explicit RequestError(int32_t http_status, std::string body)
+      : http_status(http_status), body(body) {}
 
  public:
-  int32_t status = -1;
+  int32_t http_status = -1;
   std::string body;
 };
 
@@ -163,6 +163,13 @@ class Session {
                         content_type);
   }
   template <typename R>
+  httplib::Result MakePatch(const R& request,
+                            std::string content_type = "application/json") {
+    nlohmann::json j = request.body;
+    return client_.Patch(kBasePath + request.FormattedPath(), j.dump(),
+                         content_type);
+  }
+  template <typename R>
   httplib::Result MakeAuthGet(const R& request) {
     return client_.Get(kBasePath + request.FormattedPath(),
                        request.HttplibParams(),
@@ -171,10 +178,28 @@ class Session {
   template <typename R>
   httplib::Result MakeAuthPost(const R& request,
                                std::string content_type = "application/json") {
+    constexpr bool has_to_json = requires(const R& r) { r.to_json(); };
+
+    if constexpr (has_to_json) {
+      nlohmann::json j = request.body;
+      return client_.Post(
+          kBasePath + request.FormattedPath(),
+          httplib::Headers{{"Authorization", "Bearer " + token_}}, j.dump(),
+          content_type);
+    } else {
+      return client_.Post(
+          kBasePath + request.FormattedPath(),
+          httplib::Headers{{"Authorization", "Bearer " + token_}});
+    }
+  }
+  template <typename R>
+  httplib::Result MakeAuthPatch(const R& request,
+                                std::string content_type = "application/json") {
     nlohmann::json j = request.body;
-    return client_.Post(kBasePath + request.FormattedPath(),
-                        httplib::Headers{{"Authorization", "Bearer " + token_}},
-                        j.dump(), content_type);
+    return client_.Patch(
+        kBasePath + request.FormattedPath(),
+        httplib::Headers{{"Authorization", "Bearer " + token_}}, j.dump(),
+        content_type);
   }
 
   template <typename R>
@@ -186,6 +211,7 @@ class Session {
 
     nlohmann::json j = j.parse(result->body);
     R response = j.get<R>();
+    response.http_status = result->status;
     return Ok(response);
   }
 

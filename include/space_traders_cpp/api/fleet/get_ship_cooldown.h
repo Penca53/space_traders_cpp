@@ -40,5 +40,8 @@ struct GetShipCooldownResponse {
   static constexpr int32_t kNoCooldownStatus = kHttpNoContentStatus;
 
  public:
+  int32_t http_status = 0;
+
+ public:
   Cooldown data{};
 };

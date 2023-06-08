@@ -57,55 +57,139 @@ Result<GetShipResponse, RequestError> Session::GetShip(
   return ResponseBodyOrError<GetShipResponse>(result);
 }
 Result<GetShipCargoResponse, RequestError> Session::GetShipCargo(
-    const GetShipCargoRequest& req) {}
+    const GetShipCargoRequest& req) {
+  httplib::Result result = MakeAuthGet(req);
+  return ResponseBodyOrError<GetShipCargoResponse>(result);
+}
 Result<OrbitShipResponse, RequestError> Session::OrbitShip(
-    const OrbitShipRequest& req) {}
+    const OrbitShipRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<OrbitShipResponse>(result);
+}
 Result<ShipRefineResponse, RequestError> Session::ShipRefine(
-    const ShipRefineRequest& req) {}
+    const ShipRefineRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<ShipRefineResponse>(result);
+}
 Result<CreateChartResponse, RequestError> Session::CreateChart(
-    const CreateChartRequest& req) {}
+    const CreateChartRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<CreateChartResponse>(result);
+}
 Result<GetShipCooldownResponse, RequestError> Session::GetShipCooldown(
-    const GetShipCooldownRequest& req) {}
+    const GetShipCooldownRequest& req) {
+  httplib::Result result = MakeAuthGet(req);
+  // Special case with two valid response status
+  if (result->status != GetShipCooldownResponse::kValidStatus &&
+      result->status != GetShipCooldownResponse::kNoCooldownStatus) {
+    RequestError err(result->status, result->body);
+    return Err(err);
+  }
+
+  nlohmann::json j = j.parse(result->body);
+  GetShipCooldownResponse response = j.get<GetShipCooldownResponse>();
+  return Ok(response);
+}
 Result<DockShipResponse, RequestError> Session::DockShip(
-    const DockShipRequest& req) {}
+    const DockShipRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<DockShipResponse>(result);
+}
 Result<CreateSurveyResponse, RequestError> Session::CreateSurvey(
-    const CreateSurveyRequest& req) {}
+    const CreateSurveyRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<CreateSurveyResponse>(result);
+}
 Result<ExtractResourcesResponse, RequestError> Session::ExtractResources(
-    const ExtractResourcesRequest& req) {}
+    const ExtractResourcesRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<ExtractResourcesResponse>(result);
+}
 Result<JettisonCargoResponse, RequestError> Session::JettisonCargo(
-    const JettisonCargoRequest& req) {}
+    const JettisonCargoRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<JettisonCargoResponse>(result);
+}
 Result<JumpShipResponse, RequestError> Session::JumpShip(
-    const JumpShipRequest& req) {}
+    const JumpShipRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<JumpShipResponse>(result);
+}
 Result<NavigateShipResponse, RequestError> Session::NavigateShip(
-    const NavigateShipRequest& req) {}
+    const NavigateShipRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<NavigateShipResponse>(result);
+}
 Result<PatchShipNavResponse, RequestError> Session::PatchShipNav(
-    const PatchShipNavRequest& req) {}
+    const PatchShipNavRequest& req) {
+  httplib::Result result = MakeAuthPatch(req);
+  return ResponseBodyOrError<PatchShipNavResponse>(result);
+}
 Result<GetShipNavResponse, RequestError> Session::GetShipNav(
-    const GetShipNavRequest& req) {}
+    const GetShipNavRequest& req) {
+  httplib::Result result = MakeAuthGet(req);
+  return ResponseBodyOrError<GetShipNavResponse>(result);
+}
 Result<WarpShipResponse, RequestError> Session::WarpShip(
-    const WarpShipRequest& req) {}
+    const WarpShipRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<WarpShipResponse>(result);
+}
 Result<SellCargoResponse, RequestError> Session::SellCargo(
-    const SellCargoRequest& req) {}
+    const SellCargoRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<SellCargoResponse>(result);
+}
 Result<ScanSystemsResponse, RequestError> Session::ScanSystems(
-    const ScanSystemsRequest& req) {}
+    const ScanSystemsRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<ScanSystemsResponse>(result);
+}
 Result<ScanWaypointsResponse, RequestError> Session::ScanWaypoints(
-    const ScanWaypointsRequest& req) {}
+    const ScanWaypointsRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<ScanWaypointsResponse>(result);
+}
 Result<ScanShipsResponse, RequestError> Session::ScanShips(
-    const ScanShipsRequest& req) {}
+    const ScanShipsRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<ScanShipsResponse>(result);
+}
 Result<RefuelShipResponse, RequestError> Session::RefuelShip(
-    const RefuelShipRequest& req) {}
+    const RefuelShipRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<RefuelShipResponse>(result);
+}
 Result<PurchaseCargoResponse, RequestError> Session::PurchaseCargo(
-    const PurchaseCargoRequest& req) {}
+    const PurchaseCargoRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<PurchaseCargoResponse>(result);
+}
 Result<TransferCargoResponse, RequestError> Session::TransferCargo(
-    const TransferCargoRequest& req) {}
+    const TransferCargoRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<TransferCargoResponse>(result);
+}
 Result<NegotiateContractResponse, RequestError> Session::NegotiateContract(
-    const NegotiateContractRequest& req) {}
+    const NegotiateContractRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<NegotiateContractResponse>(result);
+}
 Result<GetMountsResponse, RequestError> Session::GetMounts(
-    const GetMountsRequest& req) {}
+    const GetMountsRequest& req) {
+  httplib::Result result = MakeAuthGet(req);
+  return ResponseBodyOrError<GetMountsResponse>(result);
+}
 Result<InstallMountResponse, RequestError> Session::InstallMounts(
-    const InstallMountRequest& req) {}
+    const InstallMountRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<InstallMountResponse>(result);
+}
 Result<RemoveMountResponse, RequestError> Session::RemoveMounts(
-    const RemoveMountRequest& req) {}
+    const RemoveMountRequest& req) {
+  httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<RemoveMountResponse>(result);
+}
 
 Result<ListSystemsResponse, RequestError> Session::ListSystems(
     const ListSystemsRequest& req) {

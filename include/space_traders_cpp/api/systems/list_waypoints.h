@@ -43,6 +43,9 @@ struct ListWaypointsResponse {
   static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
+  int32_t http_status = 0;
+
+ public:
   std::vector<Waypoint> data;
   Meta meta;
 };

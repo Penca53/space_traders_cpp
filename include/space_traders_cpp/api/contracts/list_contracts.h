@@ -41,6 +41,9 @@ struct ListContractsResponse {
   static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
+  int32_t http_status = 0;
+
+ public:
   std::vector<Contract> data;
   Meta meta;
 };
