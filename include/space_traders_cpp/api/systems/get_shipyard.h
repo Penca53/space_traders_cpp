@@ -37,7 +37,7 @@ struct GetShipyardResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(GetShipyardResponse, data)
 
  public:
-  static constexpr int32_t kValidStatus = kGetOkStatus;
+  static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
   Shipyard data{};

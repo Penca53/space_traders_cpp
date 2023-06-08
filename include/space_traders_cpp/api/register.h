@@ -67,7 +67,7 @@ struct RegisterResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(RegisterResponse, data)
 
  public:
-  static constexpr int32_t kValidStatus = kPostOkStatus;
+  static constexpr int32_t kValidStatus = kHttpCreatedStatus;
 
  public:
   RegisterData data{};

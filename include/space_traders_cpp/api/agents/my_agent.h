@@ -34,7 +34,7 @@ struct MyAgentResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(MyAgentResponse, data)
 
  public:
-  static constexpr int32_t kValidStatus = kGetOkStatus;
+  static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
   Agent data{};

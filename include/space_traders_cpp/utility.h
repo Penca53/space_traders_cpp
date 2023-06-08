@@ -32,8 +32,9 @@ struct Result {
   std::variant<T, E> value_;
 };
 
-static constexpr int32_t kGetOkStatus = 200;
-static constexpr int32_t kPostOkStatus = 201;
+static constexpr int32_t kHttpOkStatus = 200;
+static constexpr int32_t kHttpCreatedStatus = 201;
+static constexpr int32_t kHttpNoContentStatus = 204;
 
 NLOHMANN_JSON_NAMESPACE_BEGIN
 template <typename T>

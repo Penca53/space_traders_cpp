@@ -102,7 +102,7 @@ struct StatusResponse {
                                  announcements, links)
 
  public:
-  static constexpr int32_t kValidStatus = kGetOkStatus;
+  static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
   std::string status;

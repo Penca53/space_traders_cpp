@@ -36,7 +36,7 @@ struct GetSystemResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(GetSystemResponse, data)
 
  public:
-  static constexpr int32_t kValidStatus = kGetOkStatus;
+  static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
   System data{};

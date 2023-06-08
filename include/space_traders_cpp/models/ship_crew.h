@@ -14,7 +14,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ShipCrewRotation,
 
 struct ShipCrew {
  public:
-  NLOHMANN_DEFINE_TYPE_INTRUSIVE(ShipCrew, capacity, units, inventory)
+  NLOHMANN_DEFINE_TYPE_INTRUSIVE(ShipCrew, current, required, capacity,
+                                 rotation, morale, wages)
 
  public:
   int64_t current = 0;

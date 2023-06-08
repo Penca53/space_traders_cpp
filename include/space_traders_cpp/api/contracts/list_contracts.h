@@ -38,7 +38,7 @@ struct ListContractsResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(ListContractsResponse, data, meta)
 
  public:
-  static constexpr int32_t kValidStatus = kGetOkStatus;
+  static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
   std::vector<Contract> data;
