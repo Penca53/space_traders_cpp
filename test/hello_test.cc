@@ -28,7 +28,7 @@ TEST(HelloTest, BasicAssertions) {
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
-  Result<MyAgentResponse, RequestError> result =
+  const Result<MyAgentResponse, RequestError> result =
       session.MyAgent(MyAgentRequest{});
   ASSERT_TRUE(result.IsOk());
   EXPECT_EQ(result.Ok(), expected_my_agent);

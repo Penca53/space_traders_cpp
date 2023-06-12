@@ -15,7 +15,8 @@ Session::Session(std::shared_ptr<IClient> client, std::string token)
     : token_(token), client_(client) {}
 
 bool Session::IsAPIOnline() const {
-  Result<StatusResponse, RequestError> status_res = Status(StatusRequest{});
+  const Result<StatusResponse, RequestError> status_res =
+      Status(StatusRequest{});
   if (status_res.IsErr()) {
     return false;
   }
@@ -89,12 +90,12 @@ Result<GetShipCooldownResponse, RequestError> Session::GetShipCooldown(
   // Special case with two valid response status
   if (result->status != GetShipCooldownResponse::kValidStatus &&
       result->status != GetShipCooldownResponse::kNoCooldownStatus) {
-    RequestError err(result->status, result->body);
+    const RequestError err(result->status, result->body);
     return Err(err);
   }
 
   const nlohmann::json j = j.parse(result->body);
-  GetShipCooldownResponse response = j.get<GetShipCooldownResponse>();
+  const GetShipCooldownResponse response = j.get<GetShipCooldownResponse>();
   return Ok(response);
 }
 Result<DockShipResponse, RequestError> Session::DockShip(

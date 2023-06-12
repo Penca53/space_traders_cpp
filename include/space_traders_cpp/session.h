@@ -216,7 +216,7 @@ class Session {
   Result<R, RequestError> ResponseBodyOrError(
       const httplib::Result& result) const {
     if (result->status != R::kValidStatus) {
-      RequestError err(result->status, result->body);
+      const RequestError err(result->status, result->body);
       return Err(err);
     }
 
