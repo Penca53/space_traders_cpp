@@ -38,12 +38,13 @@ struct ListFactionsResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(ListFactionsResponse, data, meta)
 
  public:
-  static constexpr int32_t kValidStatus = kHttpOkStatus;
+  bool operator==(const ListFactionsResponse&) const = default;
 
  public:
-  int32_t http_status = 0;
+  static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
   std::vector<Faction> data;
   Meta meta;
+  int32_t http_status = 0;
 };

@@ -7,6 +7,10 @@ struct Chart {
  public:
   NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(Chart, waypointSymbol,
                                               submittedBy, submittedOn)
+
+ public:
+  bool operator==(const Chart&) const = default;
+
  public:
   std::optional<std::string> waypointSymbol;
   std::optional<std::string> submittedBy;

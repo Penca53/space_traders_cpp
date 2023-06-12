@@ -37,11 +37,12 @@ struct GetWaypointResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(GetWaypointResponse, data)
 
  public:
+  bool operator==(const GetWaypointResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Waypoint data{};
+  int32_t http_status = 0;
 };

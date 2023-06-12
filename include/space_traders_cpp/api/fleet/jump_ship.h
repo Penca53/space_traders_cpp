@@ -45,6 +45,9 @@ struct JumpShipResponse {
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Data, cooldown, nav)
 
    public:
+    bool operator==(const Data&) const = default;
+
+   public:
     Cooldown cooldown{};
     ShipNav nav{};
   };
@@ -53,11 +56,12 @@ struct JumpShipResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(JumpShipResponse, data)
 
  public:
+  bool operator==(const JumpShipResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Data data{};
+  int32_t http_status = 0;
 };

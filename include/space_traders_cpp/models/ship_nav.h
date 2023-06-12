@@ -11,6 +11,9 @@ struct ShipNav {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(ShipNav, systemSymbol, waypointSymbol, route,
                                  status, flightMode)
 
+public:
+  bool operator==(const ShipNav&) const = default;
+
  public:
   std::string systemSymbol;
   std::string waypointSymbol;

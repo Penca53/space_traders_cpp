@@ -16,6 +16,9 @@ struct ShipyardShipType {
   }
 
  public:
+  bool operator==(const ShipyardShipType&) const = default;
+
+ public:
   std::optional<ShipType> type;
 };
 
@@ -37,6 +40,9 @@ struct Shipyard {
       j.at("ships").get_to(s.ships);
     }
   }
+
+ public:
+  bool operator==(const Shipyard&) const = default;
 
  public:
   std::string symbol;

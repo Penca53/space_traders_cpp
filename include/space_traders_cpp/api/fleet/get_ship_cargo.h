@@ -36,11 +36,12 @@ struct GetShipCargoResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(GetShipCargoResponse, data)
 
  public:
+  bool operator==(const GetShipCargoResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   ShipCargo data{};
+  int32_t http_status = 0;
 };

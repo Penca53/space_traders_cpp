@@ -20,6 +20,9 @@ struct Survey {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(Survey, signature, symbol, deposits,
                                  expiration, size)
 
+public:
+  bool operator==(const Survey&) const = default;
+
  public:
   std::string signature;
   std::string symbol;

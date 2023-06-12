@@ -21,6 +21,9 @@ struct ContractTerms {
   }
 
  public:
+  bool operator==(const ContractTerms&) const = default;
+
+ public:
   std::string deadline;
   ContractPayment payment{};
   std::optional<std::vector<ContractDeliverGood>> deliver;

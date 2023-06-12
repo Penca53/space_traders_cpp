@@ -36,11 +36,12 @@ struct GetContractResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(GetContractResponse, data)
 
  public:
+  bool operator==(const GetContractResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Contract data{};
+  int32_t http_status = 0;
 };

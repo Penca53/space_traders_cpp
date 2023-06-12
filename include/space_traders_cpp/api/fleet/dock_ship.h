@@ -38,6 +38,9 @@ struct DockShipResponse {
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Data, nav)
 
    public:
+    bool operator==(const Data&) const = default;
+
+   public:
     ShipNav nav{};
   };
 
@@ -45,11 +48,12 @@ struct DockShipResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(DockShipResponse, data)
 
  public:
+  bool operator==(const DockShipResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Data data{};
+  int32_t http_status = 0;
 };

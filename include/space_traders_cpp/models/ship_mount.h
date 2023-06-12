@@ -1,7 +1,6 @@
 #pragma once
 
 #include "nlohmann/json.hpp"
-
 #include "space_traders_cpp/models/ship_requirements.h"
 
 enum class ShipMountSymbol {
@@ -100,6 +99,9 @@ struct ShipMount {
     }
     j.at("requirements").get_to(sm.requirements);
   }
+
+ public:
+  bool operator==(const ShipMount&) const = default;
 
  public:
   ShipMountSymbol symbol{};

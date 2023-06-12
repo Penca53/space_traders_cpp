@@ -133,6 +133,9 @@ struct WaypointTrait {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(WaypointTrait, symbol, name, description)
 
  public:
+  bool operator==(const WaypointTrait&) const = default;
+
+ public:
   WaypointTraitSymbol symbol{};
   std::string name;
   std::string description;

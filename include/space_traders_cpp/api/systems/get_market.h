@@ -37,11 +37,12 @@ struct GetMarketResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(GetMarketResponse, data)
 
  public:
+  bool operator==(const GetMarketResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Market data{};
+  int32_t http_status = 0;
 };

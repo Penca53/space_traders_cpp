@@ -52,10 +52,13 @@ struct RegisterRequest {
 
 struct RegisterResponse {
  private:
-  struct RegisterData {
+  struct Data {
    public:
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(RegisterData, agent, contract, faction,
-                                   token)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Data, agent, contract, faction, token)
+
+   public:
+    bool operator==(const Data&) const = default;
+
    public:
     Agent agent;
     Contract contract;
@@ -67,11 +70,12 @@ struct RegisterResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(RegisterResponse, data)
 
  public:
+  bool operator==(const RegisterResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpCreatedStatus;
 
  public:
+  Data data{};
   int32_t http_status = 0;
-
- public:
-  RegisterData data{};
 };

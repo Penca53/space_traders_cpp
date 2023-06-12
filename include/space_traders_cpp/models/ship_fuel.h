@@ -7,6 +7,9 @@ struct ShipFuelConsumed {
  public:
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(ShipFuelConsumed, amount, timestamp)
 
+public:
+  bool operator==(const ShipFuelConsumed&) const = default;
+
  public:
   int64_t amount = 0;
   std::string timestamp;
@@ -26,6 +29,9 @@ struct ShipFuel {
       j.at("consumed").get_to(sf.consumed);
     }
   }
+
+  public:
+  bool operator==(const ShipFuel&) const = default;
 
  public:
   uint64_t current = 0;

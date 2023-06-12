@@ -39,6 +39,9 @@ struct ScanWaypointsResponse {
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Data, cooldown, waypoints)
 
    public:
+    bool operator==(const Data&) const = default;
+
+   public:
     Cooldown cooldown{};
     std::vector<ScannedWaypoint> waypoints{};
   };
@@ -47,11 +50,12 @@ struct ScanWaypointsResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(ScanWaypointsResponse, data)
 
  public:
+  bool operator==(const ScanWaypointsResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpCreatedStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Data data{};
+  int32_t http_status = 0;
 };

@@ -45,6 +45,9 @@ struct PurchaseShipResponse {
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Data, agent, ship, transaction)
 
    public:
+    bool operator==(const Data&) const = default;
+
+   public:
     Agent agent{};
     Ship ship{};
     MarketTransaction transaction{};
@@ -54,11 +57,12 @@ struct PurchaseShipResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(PurchaseShipResponse, data)
 
  public:
+  bool operator==(const PurchaseShipResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpCreatedStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Data data{};
+  int32_t http_status = 0;
 };

@@ -39,6 +39,9 @@ struct AcceptContractResponse {
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Data, agent, contract)
 
    public:
+    bool operator==(const Data&) const = default;
+
+   public:
     Agent agent{};
     Contract contract{};
   };
@@ -47,11 +50,12 @@ struct AcceptContractResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(AcceptContractResponse, data)
 
  public:
+  bool operator==(const AcceptContractResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Data data{};
+  int32_t http_status = 0;
 };

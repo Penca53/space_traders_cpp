@@ -29,6 +29,9 @@ struct ShipFrame {
     j.at("requirements").get_to(sf.requirements);
   }
 
+public:
+  bool operator==(const ShipFrame&) const = default;
+
  public:
   std::string symbol;
   std::string name;

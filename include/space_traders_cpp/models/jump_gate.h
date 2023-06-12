@@ -20,6 +20,9 @@ struct JumpGate {
   }
 
  public:
+  bool operator==(const JumpGate&) const = default;
+
+ public:
   int64_t jumpRange = 0;
   std::optional<std::string> factionSymbol;
   std::vector<ConnectedSystem> connectedSystems;

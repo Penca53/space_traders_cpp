@@ -30,6 +30,9 @@ struct Market {
   }
 
  public:
+  bool operator==(const Market&) const = default;
+
+ public:
   std::string symbol;
   std::vector<TradeGood> exports;
   std::vector<TradeGood> imports;

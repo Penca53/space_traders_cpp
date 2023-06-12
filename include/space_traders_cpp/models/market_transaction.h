@@ -20,6 +20,9 @@ struct MarketTransaction {
                                  totalPrice, timestamp)
 
  public:
+  bool operator==(const MarketTransaction&) const = default;
+
+ public:
   std::string waypointSymbol;
   std::string shipSymbol;
   std::string tradeSymbol;

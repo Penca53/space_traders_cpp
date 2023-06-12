@@ -35,6 +35,9 @@ struct StatusResponse {
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Stats, agents, ships, systems, waypoints)
 
    public:
+    bool operator==(const Stats&) const = default;
+
+   public:
     int64_t agents = 0;
     int64_t ships = 0;
     int64_t systems = 0;
@@ -47,6 +50,9 @@ struct StatusResponse {
       NLOHMANN_DEFINE_TYPE_INTRUSIVE(Credits, agentSymbol, credits)
 
      public:
+      bool operator==(const Credits&) const = default;
+
+     public:
       std::string agentSymbol;
       int64_t credits = 0;
     };
@@ -54,6 +60,9 @@ struct StatusResponse {
     struct SubmittedChart {
      public:
       NLOHMANN_DEFINE_TYPE_INTRUSIVE(SubmittedChart, agentSymbol, chartCount)
+
+     public:
+      bool operator==(const SubmittedChart&) const = default;
 
      public:
       std::string agentSymbol;
@@ -65,6 +74,9 @@ struct StatusResponse {
                                    mostSubmittedCharts)
 
    public:
+    bool operator==(const Leaderboards&) const = default;
+
+   public:
     std::vector<Credits> mostCredits;
     std::vector<SubmittedChart> mostSubmittedCharts;
   };
@@ -72,6 +84,9 @@ struct StatusResponse {
   struct ServerResets {
    public:
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(ServerResets, next, frequency)
+
+   public:
+    bool operator==(const ServerResets&) const = default;
 
    public:
     std::string next;
@@ -83,6 +98,9 @@ struct StatusResponse {
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Announcement, title, body)
 
    public:
+    bool operator==(const Announcement&) const = default;
+
+   public:
     std::string title;
     std::string body;
   };
@@ -90,6 +108,9 @@ struct StatusResponse {
   struct Link {
    public:
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Link, name, url)
+
+   public:
+    bool operator==(const Link&) const = default;
 
    public:
     std::string name;
@@ -102,10 +123,10 @@ struct StatusResponse {
                                  announcements, links)
 
  public:
-  static constexpr int32_t kValidStatus = kHttpOkStatus;
+  bool operator==(const StatusResponse&) const = default;
 
  public:
-  int32_t http_status = 0;
+  static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
   std::string status;
@@ -117,4 +138,5 @@ struct StatusResponse {
   ServerResets serverResets{};
   std::vector<Announcement> announcements;
   std::vector<Link> links;
+  int32_t http_status = 0;
 };

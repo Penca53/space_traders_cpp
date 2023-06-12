@@ -34,11 +34,12 @@ struct MyAgentResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(MyAgentResponse, data)
 
  public:
+  bool operator==(const MyAgentResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Agent data{};
+  int32_t http_status = 0;
 };

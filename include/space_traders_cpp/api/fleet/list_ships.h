@@ -38,12 +38,13 @@ struct ListShipsResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(ListShipsResponse, data, meta)
 
  public:
-  static constexpr int32_t kValidStatus = kHttpOkStatus;
+  bool operator==(const ListShipsResponse&) const = default;
 
  public:
-  int32_t http_status = 0;
+  static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
   std::vector<Ship> data;
   Meta meta;
+  int32_t http_status = 0;
 };

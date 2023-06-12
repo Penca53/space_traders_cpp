@@ -8,6 +8,9 @@ struct ShipRequirements {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(ShipRequirements, power, crew,
                                               slots)
 
+public:
+  bool operator==(const ShipRequirements&) const = default;
+
  public:
   std::optional<int64_t> power;
   std::optional<int64_t> crew;

@@ -18,6 +18,9 @@ struct Ship {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(Ship, symbol, registration, nav, crew, frame,
                                  reactor, engine, modules, mounts, cargo, fuel)
 
+public:
+  bool operator==(const Ship&) const = default;
+
  public:
   std::string symbol;
   ShipRegistration registration{};

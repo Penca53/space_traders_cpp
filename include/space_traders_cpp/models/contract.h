@@ -27,6 +27,9 @@ struct Contract {
   }
 
  public:
+  bool operator==(const Contract&) const = default;
+
+ public:
   std::string id;
   std::string factionSymbol;
   std::string type;

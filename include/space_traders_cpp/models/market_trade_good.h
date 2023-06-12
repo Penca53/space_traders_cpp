@@ -23,6 +23,9 @@ struct MarketTradeGood {
                                  purchasePrice, sellPrice)
 
  public:
+  bool operator==(const MarketTradeGood&) const = default;
+
+ public:
   std::string symbol;
   uint64_t volume = 0;
   MarketTradeGoodSupply supply{};

@@ -40,6 +40,9 @@ struct RefuelShipResponse {
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Data, agent, fuel, transaction)
 
    public:
+    bool operator==(const Data&) const = default;
+
+   public:
     Agent agent{};
     ShipFuel fuel{};
     MarketTransaction transaction{};
@@ -49,11 +52,12 @@ struct RefuelShipResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(RefuelShipResponse, data)
 
  public:
+  bool operator==(const RefuelShipResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Data data{};
+  int32_t http_status = 0;
 };

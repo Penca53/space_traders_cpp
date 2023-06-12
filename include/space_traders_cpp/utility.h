@@ -7,26 +7,26 @@
 
 template <typename T>
 struct Ok {
-  explicit Ok(T val) : val(val) {}
+  explicit Ok(const T& val) : val(val) {}
   T val;
 };
 
 template <typename E>
 struct Err {
-  explicit Err(E val) : val(val) {}
+  explicit Err(const E& val) : val(val) {}
   E val;
 };
 
 template <typename T, typename E>
 struct Result {
  public:
-  Result(Ok<T> ok) { value_ = ok.val; }
-  Result(Err<E> err) { value_ = err.val; }
+  Result(const Ok<T>& ok) { value_ = ok.val; }
+  Result(const Err<E>& err) { value_ = err.val; }
 
-  bool IsOk() { return value_.index() == 0; }
-  bool IsErr() { return value_.index() == 1; }
-  T Ok() { return std::get<0>(value_); }
-  E Err() { return std::get<1>(value_); }
+  bool IsOk() const { return value_.index() == 0; }
+  bool IsErr() const { return value_.index() == 1; }
+  T Ok() const { return std::get<0>(value_); }
+  E Err() const { return std::get<1>(value_); }
 
  private:
   std::variant<T, E> value_;

@@ -6,6 +6,10 @@ struct Agent {
  public:
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(Agent, accountId, symbol, headquarters,
                                  credits, startingFaction)
+
+ public:
+  bool operator==(const Agent&) const = default;
+
  public:
   std::string accountId;
   std::string symbol;

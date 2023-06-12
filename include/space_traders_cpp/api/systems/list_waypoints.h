@@ -40,12 +40,13 @@ struct ListWaypointsResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(ListWaypointsResponse, data, meta)
 
  public:
-  static constexpr int32_t kValidStatus = kHttpOkStatus;
+  bool operator==(const ListWaypointsResponse&) const = default;
 
  public:
-  int32_t http_status = 0;
+  static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
   std::vector<Waypoint> data;
   Meta meta;
+  int32_t http_status = 0;
 };

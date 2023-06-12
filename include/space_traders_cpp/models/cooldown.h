@@ -21,6 +21,9 @@ struct Cooldown {
   }
 
  public:
+  bool operator==(const Cooldown&) const = default;
+
+ public:
   std::string shipSymbol;
   uint64_t totalSeconds = 0;
   uint64_t remainingSeconds = 0;

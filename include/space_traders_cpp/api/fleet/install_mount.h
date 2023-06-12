@@ -47,6 +47,9 @@ struct InstallMountResponse {
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Data, cargo)
 
    public:
+    bool operator==(const Data&) const = default;
+
+   public:
     Agent agent{};
     std::vector<ShipMount> mounts;
     ShipCargo cargo{};
@@ -57,11 +60,12 @@ struct InstallMountResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(InstallMountResponse, data)
 
  public:
+  bool operator==(const InstallMountResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpCreatedStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Data data{};
+  int32_t http_status = 0;
 };

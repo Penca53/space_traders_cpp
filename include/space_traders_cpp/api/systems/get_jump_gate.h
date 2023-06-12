@@ -37,11 +37,12 @@ struct GetJumpGateResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(GetJumpGateResponse, data)
 
  public:
+  bool operator==(const GetJumpGateResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   JumpGate data{};
+  int32_t http_status = 0;
 };

@@ -9,6 +9,9 @@ struct ShipNavRoute {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(ShipNavRoute, destination, departure,
                                  departureTime, arrival)
 
+public:
+  bool operator==(const ShipNavRoute&) const = default;
+
  public:
   ShipNavRouteWaypoint destination{};
   ShipNavRouteWaypoint departure{};

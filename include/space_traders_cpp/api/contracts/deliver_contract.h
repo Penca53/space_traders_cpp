@@ -47,6 +47,9 @@ struct DeliverContractResponse {
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Data, contract, cargo)
 
    public:
+    bool operator==(const Data&) const = default;
+
+   public:
     Contract contract{};
     ShipCargo cargo{};
   };
@@ -55,11 +58,12 @@ struct DeliverContractResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(DeliverContractResponse, data)
 
  public:
+  bool operator==(const DeliverContractResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Data data{};
+  int32_t http_status = 0;
 };

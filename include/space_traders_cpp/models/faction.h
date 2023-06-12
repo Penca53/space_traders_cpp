@@ -1,13 +1,15 @@
 #pragma once
 
 #include "nlohmann/json.hpp"
-
 #include "space_traders_cpp/models/faction_trait.h"
 
 struct Faction {
  public:
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(Faction, symbol, name, description,
                                  headquarters, traits, isRecruiting)
+
+ public:
+  bool operator==(const Faction&) const = default;
 
  public:
   std::string symbol;

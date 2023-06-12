@@ -53,6 +53,9 @@ struct ExtractResourcesResponse {
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Data, cooldown, extraction, cargo)
 
    public:
+    bool operator==(const Data&) const = default;
+
+   public:
     Cooldown cooldown{};
     Extraction extraction{};
     ShipCargo cargo{};
@@ -62,11 +65,12 @@ struct ExtractResourcesResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(ExtractResourcesResponse, data)
 
  public:
+  bool operator==(const ExtractResourcesResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpCreatedStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Data data{};
+  int32_t http_status = 0;
 };

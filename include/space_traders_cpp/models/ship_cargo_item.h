@@ -7,6 +7,9 @@ struct ShipCargoItem {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(ShipCargoItem, symbol, name, description,
                                  units)
 
+public:
+  bool operator==(const ShipCargoItem&) const = default;
+
  public:
   std::string symbol;
   std::string name;

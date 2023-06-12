@@ -41,6 +41,9 @@ struct ShipEngine {
   }
 
  public:
+  bool operator==(const ShipEngine&) const = default;
+
+ public:
   ShipEngineSymbol symbol{};
   std::string name;
   std::string description;

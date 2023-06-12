@@ -133,6 +133,9 @@ struct FactionTrait {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(FactionTrait, symbol, name, description)
 
  public:
+  bool operator==(const FactionTrait&) const = default;
+
+ public:
   FactionTraitSymbol symbol{};
   std::string name;
   std::string description;

@@ -38,6 +38,9 @@ struct CreateChartResponse {
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Data, chart, waypoint)
 
    public:
+    bool operator==(const Data&) const = default;
+
+   public:
     Chart chart{};
     Waypoint waypoint{};
   };
@@ -46,11 +49,12 @@ struct CreateChartResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(CreateChartResponse, data)
 
  public:
+  bool operator==(const CreateChartResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpCreatedStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Data data{};
+  int32_t http_status = 0;
 };

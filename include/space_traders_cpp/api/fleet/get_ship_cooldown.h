@@ -36,12 +36,13 @@ struct GetShipCooldownResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(GetShipCooldownResponse, data)
 
  public:
+  bool operator==(const GetShipCooldownResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpOkStatus;
   static constexpr int32_t kNoCooldownStatus = kHttpNoContentStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Cooldown data{};
+  int32_t http_status = 0;
 };

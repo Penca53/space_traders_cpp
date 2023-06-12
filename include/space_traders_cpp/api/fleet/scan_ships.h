@@ -39,6 +39,9 @@ struct ScanShipsResponse {
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Data, cooldown, ships)
 
    public:
+    bool operator==(const Data&) const = default;
+
+   public:
     Cooldown cooldown{};
     std::vector<ScannedShip> ships{};
   };
@@ -47,11 +50,12 @@ struct ScanShipsResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(ScanShipsResponse, data)
 
  public:
+  bool operator==(const ScanShipsResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpCreatedStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Data data{};
+  int32_t http_status = 0;
 };

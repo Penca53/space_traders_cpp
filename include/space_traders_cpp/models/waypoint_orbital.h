@@ -7,5 +7,8 @@ struct WaypointOrbital {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(WaypointOrbital, symbol)
 
  public:
+  bool operator==(const WaypointOrbital&) const = default;
+
+ public:
   std::string symbol;
 };

@@ -37,6 +37,9 @@ struct OrbitShipResponse {
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Data, nav)
 
    public:
+    bool operator==(const Data&) const = default;
+
+   public:
     ShipNav nav{};
   };
 
@@ -44,11 +47,12 @@ struct OrbitShipResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(OrbitShipResponse, data)
 
  public:
+  bool operator==(const OrbitShipResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Data data{};
+  int32_t http_status = 0;
 };

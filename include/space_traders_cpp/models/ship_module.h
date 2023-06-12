@@ -75,6 +75,9 @@ struct ShipModule {
   }
 
  public:
+  bool operator==(const ShipModule&) const = default;
+
+ public:
   ShipModuleSymbol symbol{};
   std::optional<uint64_t> capacity;
   std::optional<uint64_t> range;

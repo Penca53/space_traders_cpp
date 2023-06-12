@@ -36,11 +36,12 @@ struct GetSystemResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(GetSystemResponse, data)
 
  public:
+  bool operator==(const GetSystemResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   System data{};
+  int32_t http_status = 0;
 };

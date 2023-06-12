@@ -1,7 +1,6 @@
 #pragma once
 
 #include "nlohmann/json.hpp"
-
 #include "space_traders_cpp/models/system_faction.h"
 #include "space_traders_cpp/models/system_type.h"
 #include "space_traders_cpp/models/system_waypoint.h"
@@ -10,6 +9,9 @@ struct System {
  public:
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(System, symbol, sectorSymbol, type, x, y,
                                  waypoints, factions)
+
+ public:
+  bool operator==(const System&) const = default;
 
  public:
   std::string symbol;

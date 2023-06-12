@@ -1,7 +1,6 @@
 #pragma once
 
 #include "nlohmann/json.hpp"
-
 #include "space_traders_cpp/models/chart.h"
 #include "space_traders_cpp/models/waypoint_faction.h"
 #include "space_traders_cpp/models/waypoint_orbital.h"
@@ -36,6 +35,9 @@ struct Waypoint {
       j.at("chart").get_to(w.chart);
     }
   }
+
+ public:
+  bool operator==(const Waypoint&) const = default;
 
  public:
   std::string symbol;

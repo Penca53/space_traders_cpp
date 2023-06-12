@@ -17,6 +17,9 @@ struct ShipCrew {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(ShipCrew, current, required, capacity,
                                  rotation, morale, wages)
 
+public:
+  bool operator==(const ShipCrew&) const = default;
+
  public:
   int64_t current = 0;
   int64_t required = 0;

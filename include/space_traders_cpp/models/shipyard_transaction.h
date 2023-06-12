@@ -8,6 +8,9 @@ struct ShipyardTransaction {
                                  shipSymbol, price, agentSymbol, timestamp)
 
  public:
+  bool operator==(const ShipyardTransaction&) const = default;
+
+ public:
   std::string waypointSymbol;
   std::string shipSymbol;
   uint64_t price = 0;

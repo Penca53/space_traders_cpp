@@ -36,6 +36,9 @@ struct ScannedShip {
     }
   }
 
+  public:
+  bool operator==(const ScannedShip&) const = default;
+
  public:
   std::string symbol;
   ShipRegistration registration{};

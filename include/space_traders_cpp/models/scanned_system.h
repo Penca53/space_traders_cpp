@@ -11,6 +11,9 @@ struct ScannedSystem {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(ScannedSystem, symbol, sectorSymbol, type, x,
                                  y, distance)
 
+                                 public:
+  bool operator==(const ScannedSystem&) const = default;
+
  public:
   std::string symbol;
   std::string sectorSymbol;

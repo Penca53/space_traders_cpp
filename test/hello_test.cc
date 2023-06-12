@@ -1,9 +1,35 @@
-#include "gtest/gtest.h"
+#include "space_traders_cpp_test/hello_test.h"
 
-// Demonstrate some basic assertions.
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
+#include "nlohmann/json.hpp"
+#include "space_traders_cpp/api/agents/my_agent.h"
+#include "space_traders_cpp/mock_client.h"
+#include "space_traders_cpp/models/agent.h"
+#include "space_traders_cpp/session.h"
+
+using ::testing::_;
+using ::testing::AtLeast;
+using ::testing::ByRef;
+using ::testing::Eq;
+using ::testing::Return;
+
+const static std::string kToken = "my-token";
+const static httplib::Headers kAuthHeaders =
+    httplib::Headers{{"Authorization", "Bearer " + kToken}};
+
 TEST(HelloTest, BasicAssertions) {
-  // Expect two strings not to be equal.
-  EXPECT_STRNE("hello", "world");
-  // Expect equality.
-  EXPECT_EQ(7 * 6, 42);
+  const auto mock_client = std::make_shared<MockClient>();
+  const Session session(mock_client, kToken);
+
+  const MyAgentResponse expected_my_agent = MakeResponse<MyAgentResponse>();
+  httplib::Result expected_result = MakeResult(expected_my_agent);
+  EXPECT_CALL(*mock_client, Get(_, _, Eq(kAuthHeaders)))
+      .Times(AtLeast(1))
+      .WillOnce(Return(std::move(expected_result)));
+
+  Result<MyAgentResponse, RequestError> result =
+      session.MyAgent(MyAgentRequest{});
+  ASSERT_TRUE(result.IsOk());
+  EXPECT_EQ(result.Ok(), expected_my_agent);
 }

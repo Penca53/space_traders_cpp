@@ -45,6 +45,9 @@ struct JettisonCargoResponse {
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Data, cargo)
 
    public:
+    bool operator==(const Data&) const = default;
+
+   public:
     ShipCargo cargo{};
   };
 
@@ -52,11 +55,12 @@ struct JettisonCargoResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(JettisonCargoResponse, data)
 
  public:
+  bool operator==(const JettisonCargoResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Data data{};
+  int32_t http_status = 0;
 };

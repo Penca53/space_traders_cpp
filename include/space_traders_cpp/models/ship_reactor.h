@@ -42,6 +42,9 @@ struct ShipReactor {
   }
 
  public:
+  bool operator==(const ShipReactor&) const = default;
+
+ public:
   ShipReactorSymbol symbol{};
   std::string name;
   std::string description;

@@ -8,6 +8,9 @@ struct ShipCargo {
  public:
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(ShipCargo, capacity, units, inventory)
 
+public:
+  bool operator==(const ShipCargo&) const = default;
+
  public:
   uint64_t capacity = 0;
   uint64_t units = 0;

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "nlohmann/json.hpp"
-
 #include "space_traders_cpp/models/ship_engine.h"
 #include "space_traders_cpp/models/ship_frame.h"
 #include "space_traders_cpp/models/ship_module.h"
@@ -35,6 +34,9 @@ struct ShipyardShip {
     j.at("modules").get_to(ss.modules);
     j.at("mounts").get_to(ss.mounts);
   }
+
+ public:
+  bool operator==(const ShipyardShip&) const = default;
 
  public:
   std::optional<ShipType> type{};

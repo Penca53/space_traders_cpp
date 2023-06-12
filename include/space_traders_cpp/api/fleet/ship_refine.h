@@ -66,12 +66,18 @@ struct ShipRefineResponse {
                                                   units)
 
      public:
+      bool operator==(const RefineMaterial&) const = default;
+
+     public:
       std::optional<std::string> tradeSymbol;
       std::optional<int64_t> units;
     };
 
    public:
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Data, cargo, cooldown, produced, consumed)
+
+   public:
+    bool operator==(const Data&) const = default;
 
    public:
     ShipCargo cargo{};
@@ -84,11 +90,12 @@ struct ShipRefineResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(ShipRefineResponse, data)
 
  public:
+  bool operator==(const ShipRefineResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Data data{};
+  int32_t http_status = 0;
 };

@@ -45,6 +45,9 @@ struct NavigateShipResponse {
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Data, fuel, nav)
 
    public:
+    bool operator==(const Data&) const = default;
+
+   public:
     ShipFuel fuel{};
     ShipNav nav{};
   };
@@ -53,11 +56,12 @@ struct NavigateShipResponse {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(NavigateShipResponse, data)
 
  public:
+  bool operator==(const NavigateShipResponse&) const = default;
+
+ public:
   static constexpr int32_t kValidStatus = kHttpOkStatus;
 
  public:
-  int32_t http_status = 0;
-
- public:
   Data data{};
+  int32_t http_status = 0;
 };

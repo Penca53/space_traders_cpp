@@ -42,6 +42,7 @@
 #include "space_traders_cpp/api/systems/get_waypoint.h"
 #include "space_traders_cpp/api/systems/list_systems.h"
 #include "space_traders_cpp/api/systems/list_waypoints.h"
+#include "space_traders_cpp/i_client.h"
 #include "space_traders_cpp/utility.h"
 
 struct LoginRequest {
@@ -65,151 +66,161 @@ struct RequestError {
 class Session {
  public:
   explicit Session();
-  explicit Session(std::string token);
+  explicit Session(const std::string token);
+  explicit Session(const std::shared_ptr<IClient> client);
+  explicit Session(const std::shared_ptr<IClient> client,
+                   const std::string token);
 
-  bool IsAPIOnline();
-  bool IsLoggedIn();
+  bool IsAPIOnline() const;
+  bool IsLoggedIn() const;
 
   Result<MyAgentResponse, RequestError> Login(const LoginRequest& req);
 
-  Result<StatusResponse, RequestError> Status(const StatusRequest& req);
-  Result<RegisterResponse, RequestError> Register(const RegisterRequest& req);
+  Result<StatusResponse, RequestError> Status(const StatusRequest& req) const;
+  Result<RegisterResponse, RequestError> Register(
+      const RegisterRequest& req) const;
 
   Result<ListFactionsResponse, RequestError> ListFactions(
-      const ListFactionsRequest& req);
+      const ListFactionsRequest& req) const;
   Result<GetFactionResponse, RequestError> GetFaction(
-      const GetFactionRequest& req);
+      const GetFactionRequest& req) const;
 
   Result<ListShipsResponse, RequestError> ListShips(
-      const ListShipsRequest& req);
+      const ListShipsRequest& req) const;
   Result<PurchaseShipResponse, RequestError> PurchaseShip(
-      const PurchaseShipRequest& req);
-  Result<GetShipResponse, RequestError> GetShip(const GetShipRequest& req);
+      const PurchaseShipRequest& req) const;
+  Result<GetShipResponse, RequestError> GetShip(
+      const GetShipRequest& req) const;
   Result<GetShipCargoResponse, RequestError> GetShipCargo(
-      const GetShipCargoRequest& req);
+      const GetShipCargoRequest& req) const;
   Result<OrbitShipResponse, RequestError> OrbitShip(
-      const OrbitShipRequest& req);
+      const OrbitShipRequest& req) const;
   Result<ShipRefineResponse, RequestError> ShipRefine(
-      const ShipRefineRequest& req);
+      const ShipRefineRequest& req) const;
   Result<CreateChartResponse, RequestError> CreateChart(
-      const CreateChartRequest& req);
+      const CreateChartRequest& req) const;
   Result<GetShipCooldownResponse, RequestError> GetShipCooldown(
-      const GetShipCooldownRequest& req);
-  Result<DockShipResponse, RequestError> DockShip(const DockShipRequest& req);
+      const GetShipCooldownRequest& req) const;
+  Result<DockShipResponse, RequestError> DockShip(
+      const DockShipRequest& req) const;
   Result<CreateSurveyResponse, RequestError> CreateSurvey(
-      const CreateSurveyRequest& req);
+      const CreateSurveyRequest& req) const;
   Result<ExtractResourcesResponse, RequestError> ExtractResources(
-      const ExtractResourcesRequest& req);
+      const ExtractResourcesRequest& req) const;
   Result<JettisonCargoResponse, RequestError> JettisonCargo(
-      const JettisonCargoRequest& req);
-  Result<JumpShipResponse, RequestError> JumpShip(const JumpShipRequest& req);
+      const JettisonCargoRequest& req) const;
+  Result<JumpShipResponse, RequestError> JumpShip(
+      const JumpShipRequest& req) const;
   Result<NavigateShipResponse, RequestError> NavigateShip(
-      const NavigateShipRequest& req);
+      const NavigateShipRequest& req) const;
   Result<PatchShipNavResponse, RequestError> PatchShipNav(
-      const PatchShipNavRequest& req);
+      const PatchShipNavRequest& req) const;
   Result<GetShipNavResponse, RequestError> GetShipNav(
-      const GetShipNavRequest& req);
-  Result<WarpShipResponse, RequestError> WarpShip(const WarpShipRequest& req);
+      const GetShipNavRequest& req) const;
+  Result<WarpShipResponse, RequestError> WarpShip(
+      const WarpShipRequest& req) const;
   Result<SellCargoResponse, RequestError> SellCargo(
-      const SellCargoRequest& req);
+      const SellCargoRequest& req) const;
   Result<ScanSystemsResponse, RequestError> ScanSystems(
-      const ScanSystemsRequest& req);
+      const ScanSystemsRequest& req) const;
   Result<ScanWaypointsResponse, RequestError> ScanWaypoints(
-      const ScanWaypointsRequest& req);
+      const ScanWaypointsRequest& req) const;
   Result<ScanShipsResponse, RequestError> ScanShips(
-      const ScanShipsRequest& req);
+      const ScanShipsRequest& req) const;
   Result<RefuelShipResponse, RequestError> RefuelShip(
-      const RefuelShipRequest& req);
+      const RefuelShipRequest& req) const;
   Result<PurchaseCargoResponse, RequestError> PurchaseCargo(
-      const PurchaseCargoRequest& req);
+      const PurchaseCargoRequest& req) const;
   Result<TransferCargoResponse, RequestError> TransferCargo(
-      const TransferCargoRequest& req);
+      const TransferCargoRequest& req) const;
   Result<NegotiateContractResponse, RequestError> NegotiateContract(
-      const NegotiateContractRequest& req);
+      const NegotiateContractRequest& req) const;
   Result<GetMountsResponse, RequestError> GetMounts(
-      const GetMountsRequest& req);
+      const GetMountsRequest& req) const;
   Result<InstallMountResponse, RequestError> InstallMounts(
-      const InstallMountRequest& req);
+      const InstallMountRequest& req) const;
   Result<RemoveMountResponse, RequestError> RemoveMounts(
-      const RemoveMountRequest& req);
+      const RemoveMountRequest& req) const;
 
   Result<ListSystemsResponse, RequestError> ListSystems(
-      const ListSystemsRequest& req);
+      const ListSystemsRequest& req) const;
   Result<GetSystemResponse, RequestError> GetSystem(
-      const GetSystemRequest& req);
+      const GetSystemRequest& req) const;
   Result<ListWaypointsResponse, RequestError> ListWaypoints(
-      const ListWaypointsRequest& req);
+      const ListWaypointsRequest& req) const;
   Result<GetWaypointResponse, RequestError> GetWaypoint(
-      const GetWaypointRequest& req);
+      const GetWaypointRequest& req) const;
   Result<GetMarketResponse, RequestError> GetMarket(
-      const GetMarketRequest& req);
+      const GetMarketRequest& req) const;
   Result<GetShipyardResponse, RequestError> GetShipyard(
-      const GetShipyardRequest& req);
+      const GetShipyardRequest& req) const;
   Result<GetJumpGateResponse, RequestError> GetJumpGate(
-      const GetJumpGateRequest& req);
-  Result<MyAgentResponse, RequestError> MyAgent(const MyAgentRequest& req);
+      const GetJumpGateRequest& req) const;
+  Result<MyAgentResponse, RequestError> MyAgent(
+      const MyAgentRequest& req) const;
 
  private:
   template <typename R>
-  httplib::Result MakeGet(const R& request) {
-    return client_.Get(kBasePath + request.FormattedPath(),
-                       request.HttplibParams(), httplib::Headers{});
+  httplib::Result MakeGet(const R& request) const {
+    return client_->Get(kBasePath + request.FormattedPath(),
+                        request.HttplibParams(), httplib::Headers{});
   }
   template <typename R>
-  httplib::Result MakePost(const R& request,
-                           std::string content_type = "application/json") {
-    nlohmann::json j = request.body;
-    return client_.Post(kBasePath + request.FormattedPath(), j.dump(),
-                        content_type);
-  }
-  template <typename R>
-  httplib::Result MakePatch(const R& request,
-                            std::string content_type = "application/json") {
-    nlohmann::json j = request.body;
-    return client_.Patch(kBasePath + request.FormattedPath(), j.dump(),
+  httplib::Result MakePost(
+      const R& request, std::string content_type = "application/json") const {
+    const nlohmann::json j = request.body;
+    return client_->Post(kBasePath + request.FormattedPath(), j.dump(),
                          content_type);
   }
   template <typename R>
-  httplib::Result MakeAuthGet(const R& request) {
-    return client_.Get(kBasePath + request.FormattedPath(),
-                       request.HttplibParams(),
-                       httplib::Headers{{"Authorization", "Bearer " + token_}});
+  httplib::Result MakePatch(
+      const R& request, std::string content_type = "application/json") const {
+    const nlohmann::json j = request.body;
+    return client_->Patch(kBasePath + request.FormattedPath(), j.dump(),
+                          content_type);
   }
   template <typename R>
-  httplib::Result MakeAuthPost(const R& request,
-                               std::string content_type = "application/json") {
+  httplib::Result MakeAuthGet(const R& request) const {
+    return client_->Get(
+        kBasePath + request.FormattedPath(), request.HttplibParams(),
+        httplib::Headers{{"Authorization", "Bearer " + token_}});
+  }
+  template <typename R>
+  httplib::Result MakeAuthPost(
+      const R& request, std::string content_type = "application/json") const {
     constexpr bool has_to_json = requires(const R& r) { r.to_json(); };
 
     if constexpr (has_to_json) {
-      nlohmann::json j = request.body;
-      return client_.Post(
+      const nlohmann::json j = request.body;
+      return client_->Post(
           kBasePath + request.FormattedPath(),
           httplib::Headers{{"Authorization", "Bearer " + token_}}, j.dump(),
           content_type);
     } else {
-      return client_.Post(
+      return client_->Post(
           kBasePath + request.FormattedPath(),
           httplib::Headers{{"Authorization", "Bearer " + token_}});
     }
   }
   template <typename R>
-  httplib::Result MakeAuthPatch(const R& request,
-                                std::string content_type = "application/json") {
-    nlohmann::json j = request.body;
-    return client_.Patch(
+  httplib::Result MakeAuthPatch(
+      const R& request, std::string content_type = "application/json") const {
+    const nlohmann::json j = request.body;
+    return client_->Patch(
         kBasePath + request.FormattedPath(),
         httplib::Headers{{"Authorization", "Bearer " + token_}}, j.dump(),
         content_type);
   }
 
   template <typename R>
-  Result<R, RequestError> ResponseBodyOrError(const httplib::Result& result) {
+  Result<R, RequestError> ResponseBodyOrError(
+      const httplib::Result& result) const {
     if (result->status != R::kValidStatus) {
       RequestError err(result->status, result->body);
       return Err(err);
     }
 
-    nlohmann::json j = j.parse(result->body);
+    const nlohmann::json j = j.parse(result->body);
     R response = j.get<R>();
     response.http_status = result->status;
     return Ok(response);
@@ -217,6 +228,6 @@ class Session {
 
  private:
   std::string token_;
-  httplib::Client client_;
+  std::shared_ptr<IClient> client_;
   static const std::string kBasePath;
 };

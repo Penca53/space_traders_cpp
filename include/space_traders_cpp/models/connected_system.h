@@ -29,6 +29,9 @@ struct ConnectedSystem {
   }
 
  public:
+  bool operator==(const ConnectedSystem&) const = default;
+
+ public:
   std::string symbol;
   std::string sectorSymbol;
   SystemType type{};

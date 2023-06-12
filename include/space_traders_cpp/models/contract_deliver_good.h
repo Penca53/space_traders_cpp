@@ -9,6 +9,9 @@ struct ContractDeliverGood {
                                  unitsFulfilled)
 
  public:
+  bool operator==(const ContractDeliverGood&) const = default;
+
+ public:
   std::string tradeSymbol;
   std::string destinationSymbol;
   uint64_t unitsRequired = 0;
