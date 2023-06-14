@@ -36,6 +36,8 @@ static constexpr int32_t kHttpOkStatus = 200;
 static constexpr int32_t kHttpCreatedStatus = 201;
 static constexpr int32_t kHttpNoContentStatus = 204;
 
+static constexpr int32_t kHttpUnauthorizedStatus = 401;
+
 NLOHMANN_JSON_NAMESPACE_BEGIN
 template <typename T>
 struct adl_serializer<std::optional<T>> {

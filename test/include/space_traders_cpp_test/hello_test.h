@@ -11,11 +11,18 @@ T MakeResponse(const int32_t default_to_status = T::kValidStatus) {
 }
 
 template <typename T>
-httplib::Result MakeResult(const T& expected_object) {
+httplib::Result MakeResultOk(const T& expected_object) {
   const nlohmann::json j = expected_object;
   auto http_res = std::make_unique<httplib::Response>();
   http_res->body = j.dump();
   http_res->status = T::kValidStatus;
+  httplib::Result result(std::move(http_res), {});
+  return result;
+}
+
+inline httplib::Result MakeResultErr(const int32_t http_status) {
+  auto http_res = std::make_unique<httplib::Response>();
+  http_res->status = http_status;
   httplib::Result result(std::move(http_res), {});
   return result;
 }
