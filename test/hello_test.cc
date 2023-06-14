@@ -36,6 +36,57 @@ TEST(StatusTest, ShouldReturnOkWhenNotAuthenticated) {
   EXPECT_EQ(result.Ok(), expected_status);
 }
 
+TEST(RegisterTest, ShouldReturnOkWhenSymbolNotInUse) {
+  const auto mock_client = std::make_shared<MockClient>();
+  const Session session(mock_client);
+  const std::string my_symbol = "my-symbol";
+  const std::string faction_symbol = "COSMIC";
+
+  RegisterResponse expected_register = MakeResponse<RegisterResponse>();
+  expected_register.data.faction.symbol = faction_symbol;
+  expected_register.data.agent.symbol = my_symbol;
+  httplib::Result expected_result = MakeResultOk(expected_register);
+  EXPECT_CALL(*mock_client, Post(_, _, _))
+      .Times(AtLeast(1))
+      .WillOnce(Return(std::move(expected_result)));
+
+  const RegisterRequest register_request({}, {},
+                                         {
+                                             .faction = faction_symbol,
+                                             .symbol = my_symbol,
+                                         });
+  const Result<RegisterResponse, RequestError> result =
+      session.Register(register_request);
+  ASSERT_TRUE(result.IsOk());
+  EXPECT_EQ(result.Ok(), expected_register);
+}
+
+TEST(RegisterTest, ShouldReturnErrWhenSymbolAlreadyInUse) {
+  const auto mock_client = std::make_shared<MockClient>();
+  const Session session(mock_client);
+  const std::string my_symbol = "my-symbol";
+  const std::string faction_symbol = "COSMIC";
+
+  RegisterResponse expected_register = MakeResponse<RegisterResponse>();
+  expected_register.data.faction.symbol = faction_symbol;
+  expected_register.data.agent.symbol = my_symbol;
+  httplib::Result expected_result =
+      MakeResultErr(kHttpUnprocessableEntityStatus);
+  EXPECT_CALL(*mock_client, Post(_, _, _))
+      .Times(AtLeast(1))
+      .WillOnce(Return(std::move(expected_result)));
+
+  const RegisterRequest register_request({}, {},
+                                         {
+                                             .faction = faction_symbol,
+                                             .symbol = my_symbol,
+                                         });
+  const Result<RegisterResponse, RequestError> result =
+      session.Register(register_request);
+  ASSERT_TRUE(result.IsErr());
+  EXPECT_EQ(result.Err().http_status, kHttpUnprocessableEntityStatus);
+}
+
 TEST(MyAgentTest, ShouldReturnOkWhenAuthenticated) {
   const auto mock_client = std::make_shared<MockClient>();
   const Session session(mock_client, kToken);
