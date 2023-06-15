@@ -4,20 +4,20 @@
 #include "space_traders_cpp/models/ship_requirements.h"
 
 enum class ShipReactorSymbol {
-  REACTOR_SOLAR_I,
-  REACTOR_FUSION_I,
-  REACTOR_FISSION_I,
-  REACTOR_CHEMICAL_I,
-  REACTOR_ANTIMATTER_I,
+  kReactorSolarI,
+  kReactorFusionI,
+  kReactorFissionI,
+  kReactorChemicalI,
+  kReactorAntimatterI,
 };
 NLOHMANN_JSON_SERIALIZE_ENUM(
     ShipReactorSymbol,
     {
-        {ShipReactorSymbol::REACTOR_SOLAR_I, "REACTOR_SOLAR_I"},
-        {ShipReactorSymbol::REACTOR_FUSION_I, "REACTOR_FUSION_I"},
-        {ShipReactorSymbol::REACTOR_FISSION_I, "REACTOR_FISSION_I"},
-        {ShipReactorSymbol::REACTOR_CHEMICAL_I, "REACTOR_CHEMICAL_I"},
-        {ShipReactorSymbol::REACTOR_ANTIMATTER_I, "REACTOR_ANTIMATTER_I"},
+        {ShipReactorSymbol::kReactorSolarI, "REACTOR_SOLAR_I"},
+        {ShipReactorSymbol::kReactorFusionI, "REACTOR_FUSION_I"},
+        {ShipReactorSymbol::kReactorFissionI, "REACTOR_FISSION_I"},
+        {ShipReactorSymbol::kReactorChemicalI, "REACTOR_CHEMICAL_I"},
+        {ShipReactorSymbol::kReactorAntimatterI, "REACTOR_ANTIMATTER_I"},
     })
 
 struct ShipReactor {

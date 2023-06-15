@@ -3,28 +3,27 @@
 #include "nlohmann/json.hpp"
 
 enum class ShipType {
-  SHIP_PROBE,
-  SHIP_MINING_DRONE,
-  SHIP_INTERCEPTOR,
-  SHIP_LIGHT_HAULER,
-  SHIP_COMMAND_FRIGATE,
-  SHIP_EXPLORER,
-  SHIP_HEAVY_FREIGHTER,
-  SHIP_LIGHT_SHUTTLE,
-  SHIP_ORE_HOUND,
-  SHIP_REFINING_FREIGHTER,
+  kShipProbe,
+  kShipMiningDrone,
+  kShipInterceptor,
+  kShipLightHauler,
+  kShipCommandFrigate,
+  kShipExplorer,
+  kShipHeavyFreighter,
+  kShipLightShuttle,
+  kShipOreHound,
+  kShipRefiningFreighter,
 };
 NLOHMANN_JSON_SERIALIZE_ENUM(
-    ShipType,
-    {
-        {ShipType::SHIP_PROBE, "SHIP_PROBE"},
-        {ShipType::SHIP_MINING_DRONE, "SHIP_MINING_DRONE"},
-        {ShipType::SHIP_INTERCEPTOR, "SHIP_INTERCEPTOR"},
-        {ShipType::SHIP_LIGHT_HAULER, "SHIP_LIGHT_HAULER"},
-        {ShipType::SHIP_COMMAND_FRIGATE, "SHIP_COMMAND_FRIGATE"},
-        {ShipType::SHIP_EXPLORER, "SHIP_EXPLORER"},
-        {ShipType::SHIP_HEAVY_FREIGHTER, "SHIP_HEAVY_FREIGHTER"},
-        {ShipType::SHIP_LIGHT_SHUTTLE, "SHIP_LIGHT_SHUTTLE"},
-        {ShipType::SHIP_ORE_HOUND, "SHIP_ORE_HOUND"},
-        {ShipType::SHIP_REFINING_FREIGHTER, "SHIP_REFINING_FREIGHTER"},
-    })
+    ShipType, {
+                  {ShipType::kShipProbe, "SHIP_PROBE"},
+                  {ShipType::kShipMiningDrone, "SHIP_MINING_DRONE"},
+                  {ShipType::kShipInterceptor, "SHIP_INTERCEPTOR"},
+                  {ShipType::kShipLightHauler, "SHIP_LIGHT_HAULER"},
+                  {ShipType::kShipCommandFrigate, "SHIP_COMMAND_FRIGATE"},
+                  {ShipType::kShipExplorer, "SHIP_EXPLORER"},
+                  {ShipType::kShipHeavyFreighter, "SHIP_HEAVY_FREIGHTER"},
+                  {ShipType::kShipLightShuttle, "SHIP_LIGHT_SHUTTLE"},
+                  {ShipType::kShipOreHound, "SHIP_ORE_HOUND"},
+                  {ShipType::kShipRefiningFreighter, "SHIP_REFINING_FREIGHTER"},
+              })

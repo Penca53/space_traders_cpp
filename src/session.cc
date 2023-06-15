@@ -94,7 +94,7 @@ Result<GetShipCooldownResponse, RequestError> Session::GetShipCooldown(
     return Err(err);
   }
 
-  const nlohmann::json j = j.parse(result->body);
+  const nlohmann::json j = nlohmann::json::parse(result->body);
   const GetShipCooldownResponse response = j.get<GetShipCooldownResponse>();
   return Ok(response);
 }

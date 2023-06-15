@@ -3,15 +3,15 @@
 #include "nlohmann/json.hpp"
 
 enum class ShipNavFlightMode {
-  CRUISE,
-  DRIFT,
-  STEALTH,
-  BURN,
+  kCruise,
+  kDrift,
+  kStealth,
+  kBurn,
 };
 NLOHMANN_JSON_SERIALIZE_ENUM(ShipNavFlightMode,
                              {
-                                 {ShipNavFlightMode::CRUISE, "CRUISE"},
-                                 {ShipNavFlightMode::DRIFT, "DRIFT"},
-                                 {ShipNavFlightMode::STEALTH, "STEALTH"},
-                                 {ShipNavFlightMode::BURN, "BURN"},
+                                 {ShipNavFlightMode::kCruise, "CRUISE"},
+                                 {ShipNavFlightMode::kDrift, "DRIFT"},
+                                 {ShipNavFlightMode::kStealth, "STEALTH"},
+                                 {ShipNavFlightMode::kBurn, "BURN"},
                              })

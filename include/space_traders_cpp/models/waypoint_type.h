@@ -3,25 +3,25 @@
 #include "nlohmann/json.hpp"
 
 enum class WaypointType {
-  PLANET,
-  GAS_GIANT,
-  MOON,
-  ORBITAL_STATION,
-  JUMP_GATE,
-  ASTEROID_FIELD,
-  NEBULA,
-  DEBRIS_FIELD,
-  GRAVITY_WELL,
+  kPlanet,
+  kGasGiant,
+  kMoon,
+  kOrbitalStation,
+  kJumpGate,
+  kAsteroidField,
+  kNebula,
+  kDebrisField,
+  kGravityWell,
 };
 NLOHMANN_JSON_SERIALIZE_ENUM(
     WaypointType, {
-                      {WaypointType::PLANET, "PLANET"},
-                      {WaypointType::GAS_GIANT, "GAS_GIANT"},
-                      {WaypointType::MOON, "MOON"},
-                      {WaypointType::ORBITAL_STATION, "ORBITAL_STATION"},
-                      {WaypointType::JUMP_GATE, "JUMP_GATE"},
-                      {WaypointType::ASTEROID_FIELD, "ASTEROID_FIELD"},
-                      {WaypointType::NEBULA, "NEBULA"},
-                      {WaypointType::DEBRIS_FIELD, "DEBRIS_FIELD"},
-                      {WaypointType::GRAVITY_WELL, "GRAVITY_WELL"},
+                      {WaypointType::kPlanet, "PLANET"},
+                      {WaypointType::kGasGiant, "GAS_GIANT"},
+                      {WaypointType::kMoon, "MOON"},
+                      {WaypointType::kOrbitalStation, "ORBITAL_STATION"},
+                      {WaypointType::kJumpGate, "JUMP_GATE"},
+                      {WaypointType::kAsteroidField, "ASTEROID_FIELD"},
+                      {WaypointType::kNebula, "NEBULA"},
+                      {WaypointType::kDebrisField, "DEBRIS_FIELD"},
+                      {WaypointType::kGravityWell, "GRAVITY_WELL"},
                   })

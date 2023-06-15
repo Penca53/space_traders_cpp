@@ -7,27 +7,27 @@
 #include "space_traders_cpp/utility.h"
 
 enum class ShipRefineProduce {
-  IRON,
-  COPPER,
-  SILVER,
-  GOLD,
-  ALUMINIUM,
-  PLATINUM,
-  URANITE,
-  MERITIUM,
-  FUEL,
+  kIron,
+  kCopper,
+  kSilver,
+  kGold,
+  kAluminium,
+  kPlatinum,
+  kUranite,
+  kMeritium,
+  kFuel,
 };
 NLOHMANN_JSON_SERIALIZE_ENUM(ShipRefineProduce,
                              {
-                                 {ShipRefineProduce::IRON, "IRON"},
-                                 {ShipRefineProduce::COPPER, "COPPER"},
-                                 {ShipRefineProduce::SILVER, "SILVER"},
-                                 {ShipRefineProduce::GOLD, "GOLD"},
-                                 {ShipRefineProduce::ALUMINIUM, "ALUMINIUM"},
-                                 {ShipRefineProduce::PLATINUM, "PLATINUM"},
-                                 {ShipRefineProduce::URANITE, "URANITE"},
-                                 {ShipRefineProduce::MERITIUM, "MERITIUM"},
-                                 {ShipRefineProduce::FUEL, "FUEL"},
+                                 {ShipRefineProduce::kIron, "IRON"},
+                                 {ShipRefineProduce::kCopper, "COPPER"},
+                                 {ShipRefineProduce::kSilver, "SILVER"},
+                                 {ShipRefineProduce::kGold, "GOLD"},
+                                 {ShipRefineProduce::kAluminium, "ALUMINIUM"},
+                                 {ShipRefineProduce::kPlatinum, "PLATINUM"},
+                                 {ShipRefineProduce::kUranite, "URANITE"},
+                                 {ShipRefineProduce::kMeritium, "MERITIUM"},
+                                 {ShipRefineProduce::kFuel, "FUEL"},
                              })
 
 struct ShipRefineRequest {

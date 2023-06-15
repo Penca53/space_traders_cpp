@@ -3,14 +3,14 @@
 #include "nlohmann/json.hpp"
 
 enum class MarketTransactionType {
-  PURCHASE,
-  SELL,
+  kPurchase,
+  kSell,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(MarketTransactionType,
                              {
-                                 {MarketTransactionType::PURCHASE, "PURCHASE"},
-                                 {MarketTransactionType::SELL, "SELL"},
+                                 {MarketTransactionType::kPurchase, "PURCHASE"},
+                                 {MarketTransactionType::kSell, "SELL"},
                              })
 
 struct MarketTransaction {

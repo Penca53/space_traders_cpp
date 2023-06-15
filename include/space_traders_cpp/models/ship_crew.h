@@ -3,13 +3,13 @@
 #include "nlohmann/json.hpp"
 
 enum class ShipCrewRotation {
-  STRICT,
-  RELAXED,
+  kStrict,
+  kRelaxed,
 };
 NLOHMANN_JSON_SERIALIZE_ENUM(ShipCrewRotation,
                              {
-                                 {ShipCrewRotation::STRICT, "STRICT"},
-                                 {ShipCrewRotation::RELAXED, "RELAXED"},
+                                 {ShipCrewRotation::kStrict, "STRICT"},
+                                 {ShipCrewRotation::kRelaxed, "RELAXED"},
                              })
 
 struct ShipCrew {
@@ -17,7 +17,7 @@ struct ShipCrew {
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(ShipCrew, current, required, capacity,
                                  rotation, morale, wages)
 
-public:
+ public:
   bool operator==(const ShipCrew&) const = default;
 
  public:

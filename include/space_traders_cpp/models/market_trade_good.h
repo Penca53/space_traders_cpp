@@ -3,18 +3,18 @@
 #include "nlohmann/json.hpp"
 
 enum class MarketTradeGoodSupply {
-  SCARCE,
-  LIMITED,
-  MODERATE,
-  ABUNDANT,
+  kScarce,
+  kLimited,
+  kModerate,
+  kAbundant,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(MarketTradeGoodSupply,
                              {
-                                 {MarketTradeGoodSupply::SCARCE, "SCARCE"},
-                                 {MarketTradeGoodSupply::LIMITED, "LIMITED"},
-                                 {MarketTradeGoodSupply::MODERATE, "MODERATE"},
-                                 {MarketTradeGoodSupply::ABUNDANT, "ABUNDANT"},
+                                 {MarketTradeGoodSupply::kScarce, "SCARCE"},
+                                 {MarketTradeGoodSupply::kLimited, "LIMITED"},
+                                 {MarketTradeGoodSupply::kModerate, "MODERATE"},
+                                 {MarketTradeGoodSupply::kAbundant, "ABUNDANT"},
                              })
 
 struct MarketTradeGood {

@@ -5,18 +5,18 @@
 #include "space_traders_cpp/utility.h"
 
 enum class ShipEngineSymbol {
-  ENGINE_IMPULSE_DRIVE_I,
-  ENGINE_ION_DRIVE_I,
-  ENGINE_ION_DRIVE_II,
-  ENGINE_HYPER_DRIVE_I
+  kEngineImpulseDriveI,
+  kEngineIonDriveI,
+  kEngineIonDriveII,
+  kEngineHyperDriveI
 };
 NLOHMANN_JSON_SERIALIZE_ENUM(
     ShipEngineSymbol,
     {
-        {ShipEngineSymbol::ENGINE_IMPULSE_DRIVE_I, "ENGINE_IMPULSE_DRIVE_I"},
-        {ShipEngineSymbol::ENGINE_ION_DRIVE_I, "ENGINE_ION_DRIVE_I"},
-        {ShipEngineSymbol::ENGINE_ION_DRIVE_II, "ENGINE_ION_DRIVE_II"},
-        {ShipEngineSymbol::ENGINE_HYPER_DRIVE_I, "ENGINE_HYPER_DRIVE_I"},
+        {ShipEngineSymbol::kEngineImpulseDriveI, "ENGINE_IMPULSE_DRIVE_I"},
+        {ShipEngineSymbol::kEngineIonDriveI, "ENGINE_ION_DRIVE_I"},
+        {ShipEngineSymbol::kEngineIonDriveII, "ENGINE_ION_DRIVE_II"},
+        {ShipEngineSymbol::kEngineHyperDriveI, "ENGINE_HYPER_DRIVE_I"},
     })
 
 struct ShipEngine {

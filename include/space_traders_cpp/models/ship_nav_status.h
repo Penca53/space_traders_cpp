@@ -3,13 +3,13 @@
 #include "nlohmann/json.hpp"
 
 enum class ShipNavStatus {
-  IN_TRANSIT,
-  IN_ORBIT,
-  DOCKED,
+  kInTransit,
+  kInOrbit,
+  kDocked,
 };
 NLOHMANN_JSON_SERIALIZE_ENUM(ShipNavStatus,
                              {
-                                 {ShipNavStatus::IN_TRANSIT, "IN_TRANSIT"},
-                                 {ShipNavStatus::IN_ORBIT, "IN_ORBIT"},
-                                 {ShipNavStatus::DOCKED, "DOCKED"},
+                                 {ShipNavStatus::kInTransit, "IN_TRANSIT"},
+                                 {ShipNavStatus::kInOrbit, "IN_ORBIT"},
+                                 {ShipNavStatus::kDocked, "DOCKED"},
                              })

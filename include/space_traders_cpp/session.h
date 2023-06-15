@@ -220,7 +220,7 @@ class Session {
       return Err(err);
     }
 
-    const nlohmann::json j = j.parse(result->body);
+    const nlohmann::json j = nlohmann::json::parse(result->body);
     R response = j.get<R>();
     response.http_status = result->status;
     return Ok(response);
