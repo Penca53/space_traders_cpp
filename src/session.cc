@@ -38,6 +38,39 @@ Result<RegisterResponse, RequestError> Session::Register(
   const httplib::Result result = MakePost(req);
   return ResponseBodyOrError<RegisterResponse>(result);
 }
+
+Result<MyAgentResponse, RequestError> Session::MyAgent(
+    const MyAgentRequest& req) const {
+  const httplib::Result result = MakeAuthGet(req);
+  return ResponseBodyOrError<MyAgentResponse>(result);
+}
+
+Result<ListContractsResponse, RequestError> Session::ListContracts(
+    const ListContractsRequest& req) const {
+  const httplib::Result result = MakeGet(req);
+  return ResponseBodyOrError<ListContractsResponse>(result);
+}
+Result<GetContractResponse, RequestError> Session::GetContract(
+    const GetContractRequest& req) const {
+  const httplib::Result result = MakeGet(req);
+  return ResponseBodyOrError<GetContractResponse>(result);
+}
+Result<AcceptContractResponse, RequestError> Session::AcceptContract(
+    const AcceptContractRequest& req) const {
+  const httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<AcceptContractResponse>(result);
+}
+Result<DeliverContractResponse, RequestError> Session::DeliverContract(
+    const DeliverContractRequest& req) const {
+  const httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<DeliverContractResponse>(result);
+}
+Result<FulfillContractResponse, RequestError> Session::FulfillContract(
+    const FulfillContractRequest& req) const {
+  const httplib::Result result = MakeAuthPost(req);
+  return ResponseBodyOrError<FulfillContractResponse>(result);
+}
+
 Result<ListFactionsResponse, RequestError> Session::ListFactions(
     const ListFactionsRequest& req) const {
   const httplib::Result result = MakeGet(req);
@@ -233,10 +266,4 @@ Result<GetJumpGateResponse, RequestError> Session::GetJumpGate(
     const GetJumpGateRequest& req) const {
   const httplib::Result result = MakeGet(req);
   return ResponseBodyOrError<GetJumpGateResponse>(result);
-}
-
-Result<MyAgentResponse, RequestError> Session::MyAgent(
-    const MyAgentRequest& req) const {
-  const httplib::Result result = MakeAuthGet(req);
-  return ResponseBodyOrError<MyAgentResponse>(result);
 }

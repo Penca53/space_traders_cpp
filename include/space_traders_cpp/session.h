@@ -3,6 +3,11 @@
 #include "cpp-httplib/httplib.h"
 #include "nlohmann/json.hpp"
 #include "space_traders_cpp/api/agents/my_agent.h"
+#include "space_traders_cpp/api/contracts/accept_contract.h"
+#include "space_traders_cpp/api/contracts/deliver_contract.h"
+#include "space_traders_cpp/api/contracts/fulfill_contract.h"
+#include "space_traders_cpp/api/contracts/get_contract.h"
+#include "space_traders_cpp/api/contracts/list_contracts.h"
 #include "space_traders_cpp/api/factions/get_faction.h"
 #include "space_traders_cpp/api/factions/list_factions.h"
 #include "space_traders_cpp/api/fleet/create_chart.h"
@@ -80,6 +85,20 @@ class Session {
   Result<RegisterResponse, RequestError> Register(
       const RegisterRequest& req) const;
 
+  Result<MyAgentResponse, RequestError> MyAgent(
+      const MyAgentRequest& req) const;
+
+  Result<ListContractsResponse, RequestError> ListContracts(
+      const ListContractsRequest& req) const;
+  Result<GetContractResponse, RequestError> GetContract(
+      const GetContractRequest& req) const;
+  Result<AcceptContractResponse, RequestError> AcceptContract(
+      const AcceptContractRequest& req) const;
+  Result<DeliverContractResponse, RequestError> DeliverContract(
+      const DeliverContractRequest& req) const;
+  Result<FulfillContractResponse, RequestError> FulfillContract(
+      const FulfillContractRequest& req) const;
+
   Result<ListFactionsResponse, RequestError> ListFactions(
       const ListFactionsRequest& req) const;
   Result<GetFactionResponse, RequestError> GetFaction(
@@ -156,8 +175,6 @@ class Session {
       const GetShipyardRequest& req) const;
   Result<GetJumpGateResponse, RequestError> GetJumpGate(
       const GetJumpGateRequest& req) const;
-  Result<MyAgentResponse, RequestError> MyAgent(
-      const MyAgentRequest& req) const;
 
  private:
   template <typename R>
