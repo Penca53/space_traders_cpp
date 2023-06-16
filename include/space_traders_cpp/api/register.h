@@ -5,6 +5,7 @@
 #include "space_traders_cpp/models/agent.h"
 #include "space_traders_cpp/models/contract.h"
 #include "space_traders_cpp/models/faction.h"
+#include "space_traders_cpp/models/ship.h"
 #include "space_traders_cpp/utility.h"
 
 struct RegisterRequest {
@@ -60,9 +61,10 @@ struct RegisterResponse {
     bool operator==(const Data&) const = default;
 
    public:
-    Agent agent;
-    Contract contract;
-    Faction faction;
+    Agent agent{};
+    Contract contract{};
+    Faction faction{};
+    Ship ship{};
     std::string token;
   };
 
