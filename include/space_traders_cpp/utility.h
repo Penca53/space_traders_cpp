@@ -3,6 +3,7 @@
 #include <optional>
 #include <variant>
 
+#include "date/date.h"
 #include "nlohmann/json.hpp"
 
 template <typename T>
@@ -58,6 +59,22 @@ struct adl_serializer<std::optional<T>> {
       opt = j.get<T>();  // same as above, but with
                          // adl_serializer<T>::from_json
     }
+  }
+};
+
+template <class Clock, class Duration>
+struct adl_serializer<std::chrono::time_point<Clock, Duration>> {
+  static void to_json(json& j,
+                      const std::chrono::time_point<Clock, Duration>& tp) {
+    std::string s = date::format("%Y-%m-%dT%H:%M:%SZ", tp);
+    j = s;
+  }
+
+  static void from_json(const json& j,
+                        std::chrono::time_point<Clock, Duration>& tp) {
+    std::string datetime = j.get<std::string>();
+    std::istringstream in{datetime};
+    in >> date::parse("%Y-%m-%dT%H:%M:%SZ", tp);
   }
 };
 NLOHMANN_JSON_NAMESPACE_END

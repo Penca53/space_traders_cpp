@@ -24,7 +24,7 @@ struct ContractTerms {
   bool operator==(const ContractTerms&) const = default;
 
  public:
-  std::string deadline;
+  std::chrono::system_clock::time_point deadline;
   ContractPayment payment{};
   std::optional<std::vector<ContractDeliverGood>> deliver;
 };

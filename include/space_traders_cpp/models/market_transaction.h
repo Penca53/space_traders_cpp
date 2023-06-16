@@ -1,6 +1,7 @@
 #pragma once
 
 #include "nlohmann/json.hpp"
+#include "space_traders_cpp/utility.h"
 
 enum class MarketTransactionType {
   kPurchase,
@@ -30,5 +31,5 @@ struct MarketTransaction {
   uint64_t units = 0;
   uint64_t pricePerUnit = 0;
   uint64_t totalPrice = 0;
-  std::string timestamp;
+  std::chrono::system_clock::time_point timestamp;
 };

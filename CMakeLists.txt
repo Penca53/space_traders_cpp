@@ -27,6 +27,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC ./include)
 target_include_directories(${PROJECT_NAME} PUBLIC ./third_party)
 # For JSON
 target_include_directories(${PROJECT_NAME} PUBLIC ./third_party/json/single_include)
+# For Date
+target_include_directories(${PROJECT_NAME} PUBLIC ./third_party/date/include)
 target_link_libraries(${PROJECT_NAME} PUBLIC OpenSSL::SSL OpenSSL::Crypto)
 
 # Test
