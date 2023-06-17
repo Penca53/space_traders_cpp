@@ -125,7 +125,7 @@ TEST(ListContracts, ShouldReturnOkWhenNotAuthenticated) {
   EXPECT_EQ(result.Ok(), expected_list_contracts);
 }
 
-TEST(GetContract, ShouldReturnOkWhenNotAuthenticated) {
+TEST(GetContractTest, ShouldReturnOkWhenNotAuthenticated) {
   const auto mock_client = std::make_shared<MockClient>();
   const Session session(mock_client);
 
@@ -254,4 +254,38 @@ TEST(FulfillContractTest, ShouldReturnErrWhenNotAuthenticated) {
       session.FulfillContract(FulfillContractRequest{});
   ASSERT_TRUE(result.IsErr());
   EXPECT_EQ(result.Err().http_status, kHttpUnauthorizedStatus);
+}
+
+TEST(ListFactionsTest, ShouldReturnOkWhenNotAuthenticated) {
+  const auto mock_client = std::make_shared<MockClient>();
+  const Session session(mock_client);
+
+  const ListFactionsResponse expected_list_factions =
+      MakeResponse<ListFactionsResponse>();
+  httplib::Result expected_result = MakeResultOk(expected_list_factions);
+  EXPECT_CALL(*mock_client, Get(_, _, _))
+      .Times(AtLeast(1))
+      .WillOnce(Return(std::move(expected_result)));
+
+  const Result<ListFactionsResponse, RequestError> result =
+      session.ListFactions(ListFactionsRequest{});
+  ASSERT_TRUE(result.IsOk());
+  EXPECT_EQ(result.Ok(), expected_list_factions);
+}
+
+TEST(GetFactionTest, ShouldReturnOkWhenNotAuthenticated) {
+  const auto mock_client = std::make_shared<MockClient>();
+  const Session session(mock_client);
+
+  const GetFactionResponse expected_get_faction =
+      MakeResponse<GetFactionResponse>();
+  httplib::Result expected_result = MakeResultOk(expected_get_faction);
+  EXPECT_CALL(*mock_client, Get(_, _, _))
+      .Times(AtLeast(1))
+      .WillOnce(Return(std::move(expected_result)));
+
+  const Result<GetFactionResponse, RequestError> result =
+      session.GetFaction(GetFactionRequest{});
+  ASSERT_TRUE(result.IsOk());
+  EXPECT_EQ(result.Ok(), expected_get_faction);
 }
