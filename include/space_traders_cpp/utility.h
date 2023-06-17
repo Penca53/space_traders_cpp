@@ -66,7 +66,7 @@ template <class Clock, class Duration>
 struct adl_serializer<std::chrono::time_point<Clock, Duration>> {
   static void to_json(json& j,
                       const std::chrono::time_point<Clock, Duration>& tp) {
-    std::string s = date::format("%Y-%m-%dT%H:%M:%SZ", tp);
+    std::string s = date::format("%FT%TZ", tp);
     j = s;
   }
 
@@ -74,7 +74,7 @@ struct adl_serializer<std::chrono::time_point<Clock, Duration>> {
                         std::chrono::time_point<Clock, Duration>& tp) {
     std::string datetime = j.get<std::string>();
     std::istringstream in{datetime};
-    in >> date::parse("%Y-%m-%dT%H:%M:%SZ", tp);
+    in >> date::parse("%FT%TZ", tp);
   }
 };
 NLOHMANN_JSON_NAMESPACE_END
