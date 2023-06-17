@@ -47,12 +47,12 @@ Result<MyAgentResponse, RequestError> Session::MyAgent(
 
 Result<ListContractsResponse, RequestError> Session::ListContracts(
     const ListContractsRequest& req) const {
-  const httplib::Result result = MakeGet(req);
+  const httplib::Result result = MakeAuthGet(req);
   return ResponseBodyOrError<ListContractsResponse>(result);
 }
 Result<GetContractResponse, RequestError> Session::GetContract(
     const GetContractRequest& req) const {
-  const httplib::Result result = MakeGet(req);
+  const httplib::Result result = MakeAuthGet(req);
   return ResponseBodyOrError<GetContractResponse>(result);
 }
 Result<AcceptContractResponse, RequestError> Session::AcceptContract(
