@@ -36,5 +36,5 @@ struct Contract {
   ContractTerms terms{};
   bool accepted = false;
   bool fulfilled = false;
-  std::optional<std::chrono::system_clock::time_point> deadlineToAccept;
+  std::optional<DateTime> deadlineToAccept;
 };

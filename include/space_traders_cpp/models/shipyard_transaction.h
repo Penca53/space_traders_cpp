@@ -15,5 +15,5 @@ struct ShipyardTransaction {
   std::string shipSymbol;
   uint64_t price = 0;
   std::string agentSymbol;
-  std::chrono::system_clock::time_point timestamp;
+  DateTime timestamp;
 };

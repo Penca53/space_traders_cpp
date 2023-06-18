@@ -27,5 +27,5 @@ struct Cooldown {
   std::string shipSymbol;
   uint64_t totalSeconds = 0;
   uint64_t remainingSeconds = 0;
-  std::optional<std::chrono::system_clock::time_point> expiration;
+  std::optional<DateTime> expiration;
 };

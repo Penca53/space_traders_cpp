@@ -14,5 +14,5 @@ struct Chart {
  public:
   std::optional<std::string> waypointSymbol;
   std::optional<std::string> submittedBy;
-  std::optional<std::chrono::system_clock::time_point> submittedOn;
+  std::optional<DateTime> submittedOn;
 };

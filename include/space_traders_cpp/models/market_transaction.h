@@ -31,5 +31,5 @@ struct MarketTransaction {
   uint64_t units = 0;
   uint64_t pricePerUnit = 0;
   uint64_t totalPrice = 0;
-  std::chrono::system_clock::time_point timestamp;
+  DateTime timestamp;
 };

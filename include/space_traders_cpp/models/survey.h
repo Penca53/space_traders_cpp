@@ -27,6 +27,6 @@ struct Survey {
   std::string signature;
   std::string symbol;
   std::vector<SurveyDeposit> deposits;
-  std::chrono::system_clock::time_point expiration;
+  DateTime expiration;
   SurveySize size{};
 };

@@ -15,6 +15,6 @@ struct ShipNavRoute {
  public:
   ShipNavRouteWaypoint destination{};
   ShipNavRouteWaypoint departure{};
-  std::chrono::system_clock::time_point departureTime;
-  std::chrono::system_clock::time_point arrival;
+  DateTime departureTime;
+  DateTime arrival;
 };

@@ -40,6 +40,8 @@ static constexpr int32_t kHttpNoContentStatus = 204;
 static constexpr int32_t kHttpUnauthorizedStatus = 401;
 static constexpr int32_t kHttpUnprocessableEntityStatus = 422;
 
+using DateTime = std::chrono::sys_time<std::chrono::milliseconds>;
+
 NLOHMANN_JSON_NAMESPACE_BEGIN
 template <typename T>
 struct adl_serializer<std::optional<T>> {
