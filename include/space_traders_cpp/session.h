@@ -205,7 +205,8 @@ class Session {
   template <typename R>
   httplib::Result MakeAuthPost(
       const R& request, std::string content_type = "application/json") const {
-    constexpr bool has_to_json = requires(const R& r) { r.to_json(); };
+    constexpr bool has_to_json =
+        requires(const R& r, nlohmann::json j) { j = r.body; };
 
     if constexpr (has_to_json) {
       const nlohmann::json j = request.body;
