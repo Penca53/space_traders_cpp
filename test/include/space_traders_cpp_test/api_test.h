@@ -3,6 +3,11 @@
 #include "cpp-httplib/httplib.h"
 #include "nlohmann/json.hpp"
 
+const static std::string kToken = "my-token";
+
+const static httplib::Headers kAuthHeaders =
+    httplib::Headers{{"Authorization", "Bearer " + kToken}};
+
 template <typename T>
 T MakeResponse(const int32_t default_to_status = T::kValidStatus) {
   T expected_my_agent{};
