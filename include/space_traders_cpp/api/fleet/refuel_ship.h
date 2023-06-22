@@ -13,7 +13,12 @@ struct RefuelShipRequest {
     std::string shipSymbol;
   };
   struct QueryParams {};
-  struct Body {};
+  struct Body {
+   public:
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Body, units)
+
+    uint64_t units = 0;
+  };
 
  public:
   explicit RefuelShipRequest() = default;
