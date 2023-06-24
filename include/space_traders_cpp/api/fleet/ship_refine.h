@@ -37,6 +37,10 @@ struct ShipRefineRequest {
   };
   struct QueryParams {};
   struct Body {
+   public:
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Body, produce)
+
+   public:
     ShipRefineProduce produce{};
   };
 

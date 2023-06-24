@@ -156,9 +156,9 @@ class Session {
       const NegotiateContractRequest& req) const;
   Result<GetMountsResponse, RequestError> GetMounts(
       const GetMountsRequest& req) const;
-  Result<InstallMountResponse, RequestError> InstallMounts(
+  Result<InstallMountResponse, RequestError> InstallMount(
       const InstallMountRequest& req) const;
-  Result<RemoveMountResponse, RequestError> RemoveMounts(
+  Result<RemoveMountResponse, RequestError> RemoveMount(
       const RemoveMountRequest& req) const;
 
   Result<ListSystemsResponse, RequestError> ListSystems(

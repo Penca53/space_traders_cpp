@@ -128,7 +128,8 @@ Result<GetShipCooldownResponse, RequestError> Session::GetShipCooldown(
   }
 
   const nlohmann::json j = nlohmann::json::parse(result->body);
-  const GetShipCooldownResponse response = j.get<GetShipCooldownResponse>();
+  GetShipCooldownResponse response = j.get<GetShipCooldownResponse>();
+  response.http_status = result->status;
   return Ok(response);
 }
 Result<DockShipResponse, RequestError> Session::DockShip(
@@ -221,12 +222,12 @@ Result<GetMountsResponse, RequestError> Session::GetMounts(
   const httplib::Result result = MakeAuthGet(req);
   return ResponseBodyOrError<GetMountsResponse>(result);
 }
-Result<InstallMountResponse, RequestError> Session::InstallMounts(
+Result<InstallMountResponse, RequestError> Session::InstallMount(
     const InstallMountRequest& req) const {
   const httplib::Result result = MakeAuthPost(req);
   return ResponseBodyOrError<InstallMountResponse>(result);
 }
-Result<RemoveMountResponse, RequestError> Session::RemoveMounts(
+Result<RemoveMountResponse, RequestError> Session::RemoveMount(
     const RemoveMountRequest& req) const {
   const httplib::Result result = MakeAuthPost(req);
   return ResponseBodyOrError<RemoveMountResponse>(result);
