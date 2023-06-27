@@ -21,7 +21,13 @@ Read the Space Traders API documentation [here](https://spacetraders.stoplight.i
 target_include_directories(${PROJECT_NAME} PUBLIC ./third_party/space_traders_cpp/include)
 target_link_libraries(${PROJECT_NAME} PUBLIC space_traders_cpp)
 ```
-3) Configure and build using CMake
+3) Configure and build using CMake. 
+On MacOS it might throw an error about OPEN_SSL. In order to fix it
+you have to add it to your PATH, or try running:
+```sh
+brew upgrade openssl
+brew link --force openssl
+```
 
 ## Usage
 
