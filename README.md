@@ -6,22 +6,21 @@ Read the Space Traders API documentation [here](https://spacetraders.stoplight.i
 
 ## Install
 
-1)
-  - A) Clone the repository
-  ```sh
-  git clone --recurse-submodules https://github.com/Penca53/space_traders_cpp.git
-  ```
-  - B) Or add a submodule to your repository
-  ```sh
-  git submodule add https://github.com/Penca53/space_traders_cpp.git ./your/path
-  git submodule update --init --recursive
-  ```
+1) - A) Clone the repository
+    ```sh
+    git clone --recurse-submodules https://github.com/Penca53/space_traders_cpp.git
+    ```
+   - B) Or add a submodule to your repository
+    ```sh
+    git submodule add https://github.com/Penca53/space_traders_cpp.git ./your/path
+    git submodule update --init --recursive
+    ```
 
 2) Add the following lines to your CMakeList.txt (edit "third_party" to the location you cloned the repository in)
-   ```cmake
-   target_include_directories(${PROJECT_NAME} PUBLIC ./third_party/space_traders_cpp/include)
-   target_link_libraries(${PROJECT_NAME} PUBLIC space_traders_cpp)
-   ```
+```cmake
+target_include_directories(${PROJECT_NAME} PUBLIC ./third_party/space_traders_cpp/include)
+target_link_libraries(${PROJECT_NAME} PUBLIC space_traders_cpp)
+```
 3) Configure and build using CMake
 
 ## Usage
