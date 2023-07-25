@@ -14,9 +14,9 @@ file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
 add_library(${PROJECT_NAME} ${SRC_FILES})
 
 if(MSVC)
-  target_compile_options(${PROJECT_NAME} PRIVATE /W4 /WX /DCPPHTTPLIB_OPENSSL_SUPPORT /DJSON_ImplicitConversions=OFF)
+  target_compile_options(${PROJECT_NAME} PUBLIC /W4 /WX /DCPPHTTPLIB_OPENSSL_SUPPORT /DJSON_ImplicitConversions=OFF)
 else()
-  target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic -DCPPHTTPLIB_OPENSSL_SUPPORT -DJSON_ImplicitConversions=OFF)
+  target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra -Wpedantic -DCPPHTTPLIB_OPENSSL_SUPPORT -DJSON_ImplicitConversions=OFF)
 endif()
 
 find_package(OpenSSL COMPONENTS Crypto SSL REQUIRED)
