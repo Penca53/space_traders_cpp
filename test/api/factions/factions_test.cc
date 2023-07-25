@@ -6,7 +6,6 @@
 #include "space_traders_cpp/utility.h"
 #include "space_traders_cpp_test/api_test.h"
 
-using ::testing::_;
 using ::testing::AtLeast;
 using ::testing::ByRef;
 using ::testing::Eq;
@@ -19,7 +18,7 @@ TEST(ListFactionsTest, ShouldReturnOkWhenNotAuthenticated) {
   const ListFactionsResponse expected_list_factions =
       MakeResponse<ListFactionsResponse>();
   httplib::Result expected_result = MakeResultOk(expected_list_factions);
-  EXPECT_CALL(*mock_client, Get("/v2/factions", _, _))
+  EXPECT_CALL(*mock_client, Get("/v2/factions", ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -37,7 +36,8 @@ TEST(GetFactionTest, ShouldReturnOkWhenNotAuthenticated) {
   GetFactionResponse expected_get_faction = MakeResponse<GetFactionResponse>();
   expected_get_faction.data.symbol = my_faction;
   httplib::Result expected_result = MakeResultOk(expected_get_faction);
-  EXPECT_CALL(*mock_client, Get("/v2/factions/" + my_faction, _, _))
+  EXPECT_CALL(*mock_client,
+              Get("/v2/factions/" + my_faction, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 

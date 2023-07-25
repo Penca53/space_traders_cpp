@@ -6,7 +6,6 @@
 #include "space_traders_cpp/utility.h"
 #include "space_traders_cpp_test/api_test.h"
 
-using ::testing::_;
 using ::testing::AtLeast;
 using ::testing::ByRef;
 using ::testing::Eq;
@@ -18,7 +17,7 @@ TEST(StatusTest, ShouldReturnOkWhenNotAuthenticated) {
 
   const StatusResponse expected_status = MakeResponse<StatusResponse>();
   httplib::Result expected_result = MakeResultOk(expected_status);
-  EXPECT_CALL(*mock_client, Get("/v2/", _, _))
+  EXPECT_CALL(*mock_client, Get("/v2/", ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 

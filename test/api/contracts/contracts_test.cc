@@ -6,7 +6,6 @@
 #include "space_traders_cpp/utility.h"
 #include "space_traders_cpp_test/api_test.h"
 
-using ::testing::_;
 using ::testing::AtLeast;
 using ::testing::ByRef;
 using ::testing::Eq;
@@ -19,7 +18,7 @@ TEST(ListContracts, ShouldReturnOkWhenNotAuthenticated) {
   const ListContractsResponse expected_list_contracts =
       MakeResponse<ListContractsResponse>();
   httplib::Result expected_result = MakeResultOk(expected_list_contracts);
-  EXPECT_CALL(*mock_client, Get("/v2/my/contracts", _, _))
+  EXPECT_CALL(*mock_client, Get("/v2/my/contracts", ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -38,7 +37,8 @@ TEST(GetContractTest, ShouldReturnOkWhenNotAuthenticated) {
       MakeResponse<GetContractResponse>();
   expected_get_contract.data.id = my_contract;
   httplib::Result expected_result = MakeResultOk(expected_get_contract);
-  EXPECT_CALL(*mock_client, Get("/v2/my/contracts/" + my_contract, _, _))
+  EXPECT_CALL(*mock_client, Get("/v2/my/contracts/" + my_contract, ::testing::_,
+                                ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -79,7 +79,7 @@ TEST(AcceptContractTest, ShouldReturnErrWhenNotAuthenticated) {
   expected_accept_contract.data.contract.id = my_contract;
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
   EXPECT_CALL(*mock_client,
-              Post("/v2/my/contracts/" + my_contract + "/accept", _))
+              Post("/v2/my/contracts/" + my_contract + "/accept", ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -100,7 +100,7 @@ TEST(DeliverContractTest, ShouldReturnOkWhenAuthenticated) {
   expected_deliver_contract.data.contract.id = my_contract;
   httplib::Result expected_result = MakeResultOk(expected_deliver_contract);
   EXPECT_CALL(*mock_client, Post("/v2/my/contracts/" + my_contract + "/deliver",
-                                 kAuthHeaders, _, _))
+                                 kAuthHeaders, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -120,8 +120,8 @@ TEST(DeliverContractTest, ShouldReturnErrWhenNotAuthenticated) {
       MakeResponse<DeliverContractResponse>();
   expected_deliver_contract.data.contract.id = my_contract;
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/contracts/" + my_contract + "/deliver", _, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/contracts/" + my_contract + "/deliver",
+                                 ::testing::_, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -162,8 +162,8 @@ TEST(FulfillContractTest, ShouldReturnErrWhenNotAuthenticated) {
       MakeResponse<FulfillContractResponse>();
   expected_fulfill_contract.data.contract.id = my_contract;
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/contracts/" + my_contract + "/fulfill", _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/contracts/" + my_contract + "/fulfill",
+                                 ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 

@@ -6,7 +6,6 @@
 #include "space_traders_cpp/utility.h"
 #include "space_traders_cpp_test/api_test.h"
 
-using ::testing::_;
 using ::testing::AtLeast;
 using ::testing::ByRef;
 using ::testing::Eq;
@@ -22,7 +21,7 @@ TEST(RegisterTest, ShouldReturnOkWhenSymbolNotInUse) {
   expected_register.data.faction.symbol = faction_symbol;
   expected_register.data.agent.symbol = my_symbol;
   httplib::Result expected_result = MakeResultOk(expected_register);
-  EXPECT_CALL(*mock_client, Post("/v2/register", _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/register", ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -43,7 +42,7 @@ TEST(RegisterTest, ShouldReturnErrWhenSymbolAlreadyInUse) {
   expected_register.data.agent.symbol = my_symbol;
   httplib::Result expected_result =
       MakeResultErr(kHttpUnprocessableEntityStatus);
-  EXPECT_CALL(*mock_client, Post("/v2/register", _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/register", ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 

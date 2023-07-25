@@ -6,7 +6,6 @@
 #include "space_traders_cpp/utility.h"
 #include "space_traders_cpp_test/api_test.h"
 
-using ::testing::_;
 using ::testing::AtLeast;
 using ::testing::ByRef;
 using ::testing::Eq;
@@ -19,7 +18,7 @@ TEST(ListShipsTest, ShouldReturnOkWhenAuthenticated) {
   const ListShipsResponse expected_list_ships =
       MakeResponse<ListShipsResponse>();
   httplib::Result expected_result = MakeResultOk(expected_list_ships);
-  EXPECT_CALL(*mock_client, Get("/v2/my/ships", _, kAuthHeaders))
+  EXPECT_CALL(*mock_client, Get("/v2/my/ships", ::testing::_, kAuthHeaders))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -36,7 +35,7 @@ TEST(ListShipsTest, ShouldReturnErrWhenNotAuthenticated) {
   const ListShipsResponse expected_list_ships =
       MakeResponse<ListShipsResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client, Get("/v2/my/ships", _, _))
+  EXPECT_CALL(*mock_client, Get("/v2/my/ships", ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -53,7 +52,8 @@ TEST(PurchaseShipTest, ShouldReturnOkWhenAuthenticated) {
   const PurchaseShipResponse expected_purchase_ship =
       MakeResponse<PurchaseShipResponse>();
   httplib::Result expected_result = MakeResultOk(expected_purchase_ship);
-  EXPECT_CALL(*mock_client, Post("/v2/my/ships", kAuthHeaders, _, _))
+  EXPECT_CALL(*mock_client,
+              Post("/v2/my/ships", kAuthHeaders, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -70,7 +70,8 @@ TEST(PurchaseShipTest, ShouldReturnErrWhenNotAuthenticated) {
   const PurchaseShipResponse expected_purchase_ship =
       MakeResponse<PurchaseShipResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client, Post("/v2/my/ships", _, _, _))
+  EXPECT_CALL(*mock_client,
+              Post("/v2/my/ships", ::testing::_, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -88,7 +89,8 @@ TEST(GetShipTest, ShouldReturnOkWhenAuthenticated) {
   GetShipResponse expected_get_ship = MakeResponse<GetShipResponse>();
   expected_get_ship.data.symbol = my_ship;
   httplib::Result expected_result = MakeResultOk(expected_get_ship);
-  EXPECT_CALL(*mock_client, Get("/v2/my/ships/" + my_ship, _, kAuthHeaders))
+  EXPECT_CALL(*mock_client,
+              Get("/v2/my/ships/" + my_ship, ::testing::_, kAuthHeaders))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -105,7 +107,8 @@ TEST(GetShipTest, ShouldReturnErrWhenNotAuthenticated) {
 
   const GetShipResponse expected_get_ship = MakeResponse<GetShipResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client, Get("/v2/my/ships/" + my_ship, _, _))
+  EXPECT_CALL(*mock_client,
+              Get("/v2/my/ships/" + my_ship, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -123,8 +126,8 @@ TEST(GetShipCargoTest, ShouldReturnOkWhenAuthenticated) {
   const GetShipCargoResponse expected_get_ship_cargo =
       MakeResponse<GetShipCargoResponse>();
   httplib::Result expected_result = MakeResultOk(expected_get_ship_cargo);
-  EXPECT_CALL(*mock_client,
-              Get("/v2/my/ships/" + my_ship + "/cargo", _, kAuthHeaders))
+  EXPECT_CALL(*mock_client, Get("/v2/my/ships/" + my_ship + "/cargo",
+                                ::testing::_, kAuthHeaders))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -143,7 +146,8 @@ TEST(GetShipCargoTest, ShouldReturnErrWhenNotAuthenticated) {
   const GetShipCargoResponse expected_get_ship_cargo =
       MakeResponse<GetShipCargoResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client, Get("/v2/my/ships/" + my_ship + "/cargo", _, _))
+  EXPECT_CALL(*mock_client, Get("/v2/my/ships/" + my_ship + "/cargo",
+                                ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -181,7 +185,8 @@ TEST(OrbitShipTest, ShouldReturnErrWhenNotAuthenticated) {
   const OrbitShipResponse expected_orbit_ship =
       MakeResponse<OrbitShipResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/orbit", _))
+  EXPECT_CALL(*mock_client,
+              Post("/v2/my/ships/" + my_ship + "/orbit", ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -199,8 +204,8 @@ TEST(ShipRefineTest, ShouldReturnOkWhenAuthenticated) {
   const ShipRefineResponse expected_ship_refine =
       MakeResponse<ShipRefineResponse>();
   httplib::Result expected_result = MakeResultOk(expected_ship_refine);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/refine", kAuthHeaders, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/refine",
+                                 kAuthHeaders, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -218,8 +223,8 @@ TEST(ShipRefineTest, ShouldReturnErrWhenNotAuthenticated) {
   const ShipRefineResponse expected_ship_refine =
       MakeResponse<ShipRefineResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/refine", _, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/refine",
+                                 ::testing::_, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -256,7 +261,8 @@ TEST(CreateChartTest, ShouldReturnErrWhenNotAuthenticated) {
   const CreateChartResponse expected_create_chart =
       MakeResponse<CreateChartResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/chart", _))
+  EXPECT_CALL(*mock_client,
+              Post("/v2/my/ships/" + my_ship + "/chart", ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -274,8 +280,8 @@ TEST(GetShipCooldownTest, ShouldReturnOkWhenAuthenticated) {
   const GetShipCooldownResponse expected_get_ship_cooldown =
       MakeResponse<GetShipCooldownResponse>();
   httplib::Result expected_result = MakeResultOk(expected_get_ship_cooldown);
-  EXPECT_CALL(*mock_client,
-              Get("/v2/my/ships/" + my_ship + "/cooldown", _, kAuthHeaders))
+  EXPECT_CALL(*mock_client, Get("/v2/my/ships/" + my_ship + "/cooldown",
+                                ::testing::_, kAuthHeaders))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -294,7 +300,8 @@ TEST(GetShipCooldownTest, ShouldReturnErrWhenNotAuthenticated) {
   const GetShipCooldownResponse expected_get_ship_cooldown =
       MakeResponse<GetShipCooldownResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client, Get("/v2/my/ships/" + my_ship + "/cooldown", _, _))
+  EXPECT_CALL(*mock_client, Get("/v2/my/ships/" + my_ship + "/cooldown",
+                                ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -330,7 +337,8 @@ TEST(DockShipTest, ShouldReturnErrWhenNotAuthenticated) {
 
   const DockShipResponse expected_dock_ship = MakeResponse<DockShipResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/dock", _))
+  EXPECT_CALL(*mock_client,
+              Post("/v2/my/ships/" + my_ship + "/dock", ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -368,7 +376,8 @@ TEST(CreateSurveyTest, ShouldReturnErrWhenNotAuthenticated) {
   const CreateSurveyResponse expected_create_survey =
       MakeResponse<CreateSurveyResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/survey", _))
+  EXPECT_CALL(*mock_client,
+              Post("/v2/my/ships/" + my_ship + "/survey", ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -387,8 +396,8 @@ TEST(ExtractResourcesTest, ShouldReturnOkWhenAuthenticated) {
   const ExtractResourcesResponse expected_extract_resources =
       MakeResponse<ExtractResourcesResponse>();
   httplib::Result expected_result = MakeResultOk(expected_extract_resources);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/extract", kAuthHeaders, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/extract",
+                                 kAuthHeaders, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -407,8 +416,8 @@ TEST(ExtractResourcesTest, ShouldReturnErrWhenNotAuthenticated) {
   const ExtractResourcesResponse expected_extract_resources =
       MakeResponse<ExtractResourcesResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/extract", _, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/extract",
+                                 ::testing::_, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -427,8 +436,8 @@ TEST(JettisonCargoTest, ShouldReturnOkWhenAuthenticated) {
   const JettisonCargoResponse expected_jettison_cargo =
       MakeResponse<JettisonCargoResponse>();
   httplib::Result expected_result = MakeResultOk(expected_jettison_cargo);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/jettison", kAuthHeaders, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/jettison",
+                                 kAuthHeaders, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -447,8 +456,8 @@ TEST(JettisonCargoTest, ShouldReturnErrWhenNotAuthenticated) {
   const JettisonCargoResponse expected_jettison_cargo =
       MakeResponse<JettisonCargoResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/jettison", _, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/jettison",
+                                 ::testing::_, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -466,8 +475,8 @@ TEST(JumpShipTest, ShouldReturnOkWhenAuthenticated) {
 
   const JumpShipResponse expected_jump_ship = MakeResponse<JumpShipResponse>();
   httplib::Result expected_result = MakeResultOk(expected_jump_ship);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/jump", kAuthHeaders, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/jump",
+                                 kAuthHeaders, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -484,7 +493,8 @@ TEST(JumpShipTest, ShouldReturnErrWhenNotAuthenticated) {
 
   const JumpShipResponse expected_jump_ship = MakeResponse<JumpShipResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/jump", _, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/jump",
+                                 ::testing::_, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -502,8 +512,8 @@ TEST(NavigateShipTest, ShouldReturnOkWhenAuthenticated) {
   const NavigateShipResponse expected_navigate_ship =
       MakeResponse<NavigateShipResponse>();
   httplib::Result expected_result = MakeResultOk(expected_navigate_ship);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/navigate", kAuthHeaders, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/navigate",
+                                 kAuthHeaders, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -522,8 +532,8 @@ TEST(NavigateShipTest, ShouldReturnErrWhenNotAuthenticated) {
   const NavigateShipResponse expected_navigate_ship =
       MakeResponse<NavigateShipResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/navigate", _, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/navigate",
+                                 ::testing::_, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -542,8 +552,8 @@ TEST(PatchShipNavTest, ShouldReturnOkWhenAuthenticated) {
   const PatchShipNavResponse expected_patch_ship_nav =
       MakeResponse<PatchShipNavResponse>();
   httplib::Result expected_result = MakeResultOk(expected_patch_ship_nav);
-  EXPECT_CALL(*mock_client,
-              Patch("/v2/my/ships/" + my_ship + "/nav", kAuthHeaders, _, _))
+  EXPECT_CALL(*mock_client, Patch("/v2/my/ships/" + my_ship + "/nav",
+                                  kAuthHeaders, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -562,7 +572,8 @@ TEST(PatchShipNavTest, ShouldReturnErrWhenNotAuthenticated) {
   const PatchShipNavResponse expected_jump_ship =
       MakeResponse<PatchShipNavResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client, Patch("/v2/my/ships/" + my_ship + "/nav", _, _, _))
+  EXPECT_CALL(*mock_client, Patch("/v2/my/ships/" + my_ship + "/nav",
+                                  ::testing::_, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -581,8 +592,8 @@ TEST(GetShipNavTest, ShouldReturnOkWhenAuthenticated) {
   const GetShipNavResponse expected_get_ship_nav =
       MakeResponse<GetShipNavResponse>();
   httplib::Result expected_result = MakeResultOk(expected_get_ship_nav);
-  EXPECT_CALL(*mock_client,
-              Get("/v2/my/ships/" + my_ship + "/nav", _, kAuthHeaders))
+  EXPECT_CALL(*mock_client, Get("/v2/my/ships/" + my_ship + "/nav",
+                                ::testing::_, kAuthHeaders))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -600,7 +611,8 @@ TEST(GetShipNavTest, ShouldReturnErrWhenNotAuthenticated) {
   const GetShipNavResponse expected_get_ship_nav =
       MakeResponse<GetShipNavResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client, Get("/v2/my/ships/" + my_ship + "/nav", _, _))
+  EXPECT_CALL(*mock_client, Get("/v2/my/ships/" + my_ship + "/nav",
+                                ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -617,8 +629,8 @@ TEST(WarpShipTest, ShouldReturnOkWhenAuthenticated) {
 
   const WarpShipResponse expected_warp_ship = MakeResponse<WarpShipResponse>();
   httplib::Result expected_result = MakeResultOk(expected_warp_ship);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/warp", kAuthHeaders, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/warp",
+                                 kAuthHeaders, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -635,7 +647,8 @@ TEST(WarpShipTest, ShouldReturnErrWhenNotAuthenticated) {
 
   const WarpShipResponse expected_warp_ship = MakeResponse<WarpShipResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/warp", _, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/warp",
+                                 ::testing::_, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -653,8 +666,8 @@ TEST(SellCargoTest, ShouldReturnOkWhenAuthenticated) {
   const SellCargoResponse expected_sell_cargo =
       MakeResponse<SellCargoResponse>();
   httplib::Result expected_result = MakeResultOk(expected_sell_cargo);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/sell", kAuthHeaders, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/sell",
+                                 kAuthHeaders, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -672,7 +685,8 @@ TEST(SellCargoTest, ShouldReturnErrWhenNotAuthenticated) {
   const SellCargoResponse expected_sell_cargo =
       MakeResponse<SellCargoResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/sell", _, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/sell",
+                                 ::testing::_, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -710,7 +724,7 @@ TEST(ScanSystemsTest, ShouldReturnErrWhenNotAuthenticated) {
       MakeResponse<ScanSystemsResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
   EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/scan/systems", _))
+              Post("/v2/my/ships/" + my_ship + "/scan/systems", ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -749,7 +763,7 @@ TEST(ScanWaypointsTest, ShouldReturnErrWhenNotAuthenticated) {
       MakeResponse<ScanWaypointsResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
   EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/scan/waypoints", _))
+              Post("/v2/my/ships/" + my_ship + "/scan/waypoints", ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -787,7 +801,8 @@ TEST(ScanShipsTest, ShouldReturnErrWhenNotAuthenticated) {
   const ScanShipsResponse expected_scan_ships =
       MakeResponse<ScanShipsResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/scan/ships", _))
+  EXPECT_CALL(*mock_client,
+              Post("/v2/my/ships/" + my_ship + "/scan/ships", ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -805,8 +820,8 @@ TEST(RefuelShipTest, ShouldReturnOkWhenAuthenticated) {
   const RefuelShipResponse expected_refuel_ship =
       MakeResponse<RefuelShipResponse>();
   httplib::Result expected_result = MakeResultOk(expected_refuel_ship);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/refuel", kAuthHeaders, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/refuel",
+                                 kAuthHeaders, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -824,8 +839,8 @@ TEST(RefuelShipTest, ShouldReturnErrWhenNotAuthenticated) {
   const RefuelShipResponse expected_refuel_ship =
       MakeResponse<RefuelShipResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/refuel", _, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/refuel",
+                                 ::testing::_, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -843,8 +858,8 @@ TEST(PurchaseCargoTest, ShouldReturnOkWhenAuthenticated) {
   const PurchaseCargoResponse expected_purchase_cargo =
       MakeResponse<PurchaseCargoResponse>();
   httplib::Result expected_result = MakeResultOk(expected_purchase_cargo);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/purchase", kAuthHeaders, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/purchase",
+                                 kAuthHeaders, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -863,8 +878,8 @@ TEST(PurchaseCargoTest, ShouldReturnErrWhenNotAuthenticated) {
   const PurchaseCargoResponse expected_purchase_cargo =
       MakeResponse<PurchaseCargoResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/purchase", _, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/purchase",
+                                 ::testing::_, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -883,8 +898,8 @@ TEST(TransferCargoTest, ShouldReturnOkWhenAuthenticated) {
   const TransferCargoResponse expected_transfer_cargo =
       MakeResponse<TransferCargoResponse>();
   httplib::Result expected_result = MakeResultOk(expected_transfer_cargo);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/transfer", kAuthHeaders, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/transfer",
+                                 kAuthHeaders, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -903,8 +918,8 @@ TEST(TransferCargoTest, ShouldReturnErrWhenNotAuthenticated) {
   const TransferCargoResponse expected_transfer_cargo =
       MakeResponse<TransferCargoResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/transfer", _, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/transfer",
+                                 ::testing::_, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -944,8 +959,9 @@ TEST(NegotiateContractTest, ShouldReturnErrWhenNotAuthenticated) {
   const NegotiateContractResponse expected_negotiate_contract =
       MakeResponse<NegotiateContractResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/negotiate/contract", _))
+  EXPECT_CALL(
+      *mock_client,
+      Post("/v2/my/ships/" + my_ship + "/negotiate/contract", ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -964,8 +980,8 @@ TEST(GetMountsTest, ShouldReturnOkWhenAuthenticated) {
   const GetMountsResponse expected_get_mounts =
       MakeResponse<GetMountsResponse>();
   httplib::Result expected_result = MakeResultOk(expected_get_mounts);
-  EXPECT_CALL(*mock_client,
-              Get("/v2/my/ships/" + my_ship + "/mounts", _, kAuthHeaders))
+  EXPECT_CALL(*mock_client, Get("/v2/my/ships/" + my_ship + "/mounts",
+                                ::testing::_, kAuthHeaders))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -983,7 +999,8 @@ TEST(GetMountsTest, ShouldReturnErrWhenNotAuthenticated) {
   const GetMountsResponse expected_get_mounts =
       MakeResponse<GetMountsResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client, Get("/v2/my/ships/" + my_ship + "/mounts", _, _))
+  EXPECT_CALL(*mock_client, Get("/v2/my/ships/" + my_ship + "/mounts",
+                                ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -1002,7 +1019,7 @@ TEST(InstallMountTest, ShouldReturnOkWhenAuthenticated) {
       MakeResponse<InstallMountResponse>();
   httplib::Result expected_result = MakeResultOk(expected_install_mount);
   EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/mounts/install",
-                                 kAuthHeaders, _, _))
+                                 kAuthHeaders, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -1021,8 +1038,8 @@ TEST(InstallMountTest, ShouldReturnErrWhenNotAuthenticated) {
   const InstallMountResponse expected_install_mount =
       MakeResponse<InstallMountResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/mounts/install", _, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/mounts/install",
+                                 ::testing::_, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -1042,7 +1059,7 @@ TEST(RemoveMountTest, ShouldReturnOkWhenAuthenticated) {
       MakeResponse<RemoveMountResponse>();
   httplib::Result expected_result = MakeResultOk(expected_remove_mount);
   EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/mounts/remove",
-                                 kAuthHeaders, _, _))
+                                 kAuthHeaders, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -1060,8 +1077,8 @@ TEST(RemoveMountTest, ShouldReturnErrWhenNotAuthenticated) {
   const RemoveMountResponse expected_remove_mount =
       MakeResponse<RemoveMountResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client,
-              Post("/v2/my/ships/" + my_ship + "/mounts/remove", _, _, _))
+  EXPECT_CALL(*mock_client, Post("/v2/my/ships/" + my_ship + "/mounts/remove",
+                                 ::testing::_, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 

@@ -6,7 +6,6 @@
 #include "space_traders_cpp/utility.h"
 #include "space_traders_cpp_test/api_test.h"
 
-using ::testing::_;
 using ::testing::AtLeast;
 using ::testing::ByRef;
 using ::testing::Eq;
@@ -18,7 +17,7 @@ TEST(MyAgentTest, ShouldReturnOkWhenAuthenticated) {
 
   const MyAgentResponse expected_my_agent = MakeResponse<MyAgentResponse>();
   httplib::Result expected_result = MakeResultOk(expected_my_agent);
-  EXPECT_CALL(*mock_client, Get("/v2/my/agent", _, kAuthHeaders))
+  EXPECT_CALL(*mock_client, Get("/v2/my/agent", ::testing::_, kAuthHeaders))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -34,7 +33,7 @@ TEST(MyAgentTest, ShouldReturnErrWhenNotAuthenticated) {
 
   const MyAgentResponse expected_my_agent = MakeResponse<MyAgentResponse>();
   httplib::Result expected_result = MakeResultErr(kHttpUnauthorizedStatus);
-  EXPECT_CALL(*mock_client, Get("/v2/my/agent", _, _))
+  EXPECT_CALL(*mock_client, Get("/v2/my/agent", ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 

@@ -6,7 +6,6 @@
 #include "space_traders_cpp/utility.h"
 #include "space_traders_cpp_test/api_test.h"
 
-using ::testing::_;
 using ::testing::AtLeast;
 using ::testing::ByRef;
 using ::testing::Eq;
@@ -19,7 +18,7 @@ TEST(ListSystemsTest, ShouldReturnOkWhenNotAuthenticated) {
   const ListSystemsResponse expected_list_systems =
       MakeResponse<ListSystemsResponse>();
   httplib::Result expected_result = MakeResultOk(expected_list_systems);
-  EXPECT_CALL(*mock_client, Get("/v2/systems", _, _))
+  EXPECT_CALL(*mock_client, Get("/v2/systems", ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -37,7 +36,8 @@ TEST(GetSystemTest, ShouldReturnOkWhenNotAuthenticated) {
   GetSystemResponse expected_get_system = MakeResponse<GetSystemResponse>();
   expected_get_system.data.symbol = my_system;
   httplib::Result expected_result = MakeResultOk(expected_get_system);
-  EXPECT_CALL(*mock_client, Get("/v2/systems/" + my_system, _, _))
+  EXPECT_CALL(*mock_client,
+              Get("/v2/systems/" + my_system, ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -55,8 +55,8 @@ TEST(ListWaypointsTest, ShouldReturnOkWhenNotAuthenticated) {
   const ListWaypointsResponse expected_list_waypoints =
       MakeResponse<ListWaypointsResponse>();
   httplib::Result expected_result = MakeResultOk(expected_list_waypoints);
-  EXPECT_CALL(*mock_client,
-              Get("/v2/systems/" + my_system + "/waypoints", _, _))
+  EXPECT_CALL(*mock_client, Get("/v2/systems/" + my_system + "/waypoints",
+                                ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -76,9 +76,9 @@ TEST(GetWaypointTest, ShouldReturnOkWhenNotAuthenticated) {
   const GetWaypointResponse expected_get_waypoint =
       MakeResponse<GetWaypointResponse>();
   httplib::Result expected_result = MakeResultOk(expected_get_waypoint);
-  EXPECT_CALL(
-      *mock_client,
-      Get("/v2/systems/" + my_system + "/waypoints/" + my_waypoint, _, _))
+  EXPECT_CALL(*mock_client,
+              Get("/v2/systems/" + my_system + "/waypoints/" + my_waypoint,
+                  ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -100,7 +100,7 @@ TEST(GetMarketTest, ShouldReturnOkWhenNotAuthenticated) {
   httplib::Result expected_result = MakeResultOk(expected_get_market);
   EXPECT_CALL(*mock_client, Get("/v2/systems/" + my_system + "/waypoints/" +
                                     my_waypoint + "/market",
-                                _, _))
+                                ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -122,7 +122,7 @@ TEST(GetShipyardTest, ShouldReturnOkWhenNotAuthenticated) {
   httplib::Result expected_result = MakeResultOk(expected_get_shipyard);
   EXPECT_CALL(*mock_client, Get("/v2/systems/" + my_system + "/waypoints/" +
                                     my_waypoint + "/shipyard",
-                                _, _))
+                                ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
@@ -144,7 +144,7 @@ TEST(GetJumpGateTest, ShouldReturnOkWhenNotAuthenticated) {
   httplib::Result expected_result = MakeResultOk(expected_get_jump_gate);
   EXPECT_CALL(*mock_client, Get("/v2/systems/" + my_system + "/waypoints/" +
                                     my_waypoint + "/jump-gate",
-                                _, _))
+                                ::testing::_, ::testing::_))
       .Times(AtLeast(1))
       .WillOnce(Return(std::move(expected_result)));
 
