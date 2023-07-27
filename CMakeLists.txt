@@ -18,12 +18,12 @@ if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 endif()
 
 if(${MAIN_PROJECT})
-    set(ENABLE_TESTING_Init ON)
+    set(ENABLE_SPACE_TRADERS_CPP_TESTING_Init ON)
 else()
-    set(ENABLE_TESTING_Init OFF)
+    set(ENABLE_SPACE_TRADERS_CPP_TESTING_Init OFF)
 endif()
 
-option(ENABLE_TESTING                     "Build the unit tests when ENABLE_TESTING is enabled." ${ENABLE_TESTING_Init})
+option(ENABLE_SPACE_TRADERS_CPP_TESTING                     "Build the unit tests when ENABLE_SPACE_TRADERS_CPP_TESTING is enabled." ${ENABLE_SPACE_TRADERS_CPP_TESTING_Init})
 
 file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
         "${PROJECT_SOURCE_DIR}/include/*.h"
@@ -48,7 +48,7 @@ else()
   target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic )
 endif()
 
-if(ENABLE_TESTING)
+if(ENABLE_SPACE_TRADERS_CPP_TESTING)
   FetchContent_Declare(
     googletest
     URL https://api.github.com/repos/google/googletest/zipball/v1.13.0
