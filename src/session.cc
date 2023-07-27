@@ -7,12 +7,13 @@ const std::string Session::kBasePath = "/v2";
 
 Session::Session()
     : client_(std::make_shared<Client>("https://api.spacetraders.io")) {}
-Session::Session(std::string token)
+Session::Session(const std::string& token)
     : token_(token),
       client_(std::make_shared<Client>("https://api.spacetraders.io")) {}
-Session::Session(std::shared_ptr<IClient> client) : client_(client) {}
-Session::Session(std::shared_ptr<IClient> client, std::string token)
-    : token_(token), client_(client) {}
+Session::Session(std::shared_ptr<IClient> client)
+    : client_(std::move(client)) {}
+Session::Session(std::shared_ptr<IClient> client, const std::string& token)
+    : token_(token), client_(std::move(client)) {}
 
 bool Session::IsAPIOnline() const {
   const Result<StatusResponse, RequestError> status_res =

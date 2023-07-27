@@ -71,10 +71,10 @@ struct RequestError {
 class Session {
  public:
   explicit Session();
-  explicit Session(const std::string token);
+  explicit Session(const std::string& token);
   explicit Session(const std::shared_ptr<IClient> client);
   explicit Session(const std::shared_ptr<IClient> client,
-                   const std::string token);
+                   const std::string& token);
 
   bool IsAPIOnline() const;
   bool IsLoggedIn() const;
