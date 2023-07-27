@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cpp-httplib/httplib.h"
+#include "httplib.h"
 
 class IClient {
  public:

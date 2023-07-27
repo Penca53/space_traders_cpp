@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cpp-httplib/httplib.h"
+#include "httplib.h"
 #include "nlohmann/json.hpp"
 
 const static std::string kToken = "my-token";

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cpp-httplib/httplib.h"
+#include "httplib.h"
 #include "nlohmann/json.hpp"
 #include "space_traders_cpp/models/meta.h"
 #include "space_traders_cpp/models/ship.h"
