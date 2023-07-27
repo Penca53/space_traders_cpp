@@ -1,6 +1,6 @@
 # space_traders_cpp
 
-The C++ SDK to interact with the Space Traders API v2.
+The C++ SDK to interact with the [Space Traders](https://spacetraders.io/) API v2.
 
 Read the Space Traders API documentation [here](https://spacetraders.stoplight.io/docs/spacetraders/8e768e6831f6c-getting-started)
 
@@ -10,16 +10,16 @@ Read the Space Traders API documentation [here](https://spacetraders.stoplight.i
     ```sh
     git clone --recurse-submodules https://github.com/Penca53/space_traders_cpp.git
     ```
-   - B) Or add a submodule to your repository
+   - B) OR add a submodule to your repository
     ```sh
     git submodule add https://github.com/Penca53/space_traders_cpp.git ./your/path
     git submodule update --init --recursive
     ```
 
-2) Add the following lines to your CMakeList.txt (edit "third_party" to the location you cloned the repository in)
+2) Add the following lines to your CMakeList.txt
 ```cmake
-target_include_directories(${PROJECT_NAME} PUBLIC ./third_party/space_traders_cpp/include)
-target_link_libraries(${PROJECT_NAME} PUBLIC space_traders_cpp)
+add_subdirectory(./path_to_deps/space_traders_cpp)
+target_link_libraries(your-project-target-name PUBLIC space_traders_cpp)
 ```
 3) Configure and build using CMake. 
 On MacOS it might throw an error about OPEN_SSL. In order to fix it
@@ -33,7 +33,7 @@ brew link --force openssl
 
 The main object you'll be using is the `Session`. It holds all of the API endpoints and data needed to make requests.
 You can create an anonymous `Session` without providing an authentication token which will only allow requests that don't need authentication.
-You can create an authenticated `Session` by providing a valid token which will allow the full API access.
+You can create an authenticated `Session` by providing a valid token which will allow full API access.
 
 All the exposed SDK methods require a `Request` parameter named after the endpoint and return a `Result<Response, Error>`, which can either be `Ok`, or `Err`.
 An example signature is `Result<GetShipResponse, RequestError> GetShip(GetShipRequest);`
