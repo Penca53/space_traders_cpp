@@ -48,6 +48,7 @@
 #include "space_traders_cpp/api/systems/list_systems.h"
 #include "space_traders_cpp/api/systems/list_waypoints.h"
 #include "space_traders_cpp/i_client.h"
+#include "space_traders_cpp/rate_limiter.h"
 #include "space_traders_cpp/utility.h"
 
 struct LoginRequest {
@@ -75,6 +76,14 @@ class Session {
   explicit Session(const std::shared_ptr<IClient> client);
   explicit Session(const std::shared_ptr<IClient> client,
                    const std::string& token);
+  explicit Session(const std::unique_ptr<RateLimiter> rate_limiter);
+  explicit Session(const std::string& token,
+                   std::unique_ptr<RateLimiter> rate_limiter);
+  explicit Session(const std::shared_ptr<IClient> client,
+                   std::unique_ptr<RateLimiter> rate_limiter);
+  explicit Session(const std::shared_ptr<IClient> client,
+                   const std::string& token,
+                   std::unique_ptr<RateLimiter> rate_limiter);
 
   bool IsAPIOnline() const;
   bool IsLoggedIn() const;
@@ -179,12 +188,14 @@ class Session {
  private:
   template <typename R>
   httplib::Result MakeGet(const R& request) const {
+    rate_limiter_->Wait();
     return client_->Get(kBasePath + request.FormattedPath(),
                         request.HttplibParams(), httplib::Headers{});
   }
   template <typename R>
   httplib::Result MakePost(
       const R& request, std::string content_type = "application/json") const {
+    rate_limiter_->Wait();
     const nlohmann::json j = request.body;
     return client_->Post(kBasePath + request.FormattedPath(), j.dump(),
                          content_type);
@@ -192,12 +203,14 @@ class Session {
   template <typename R>
   httplib::Result MakePatch(
       const R& request, std::string content_type = "application/json") const {
+    rate_limiter_->Wait();
     const nlohmann::json j = request.body;
     return client_->Patch(kBasePath + request.FormattedPath(), j.dump(),
                           content_type);
   }
   template <typename R>
   httplib::Result MakeAuthGet(const R& request) const {
+    rate_limiter_->Wait();
     return client_->Get(
         kBasePath + request.FormattedPath(), request.HttplibParams(),
         httplib::Headers{{"Authorization", "Bearer " + token_}});
@@ -205,6 +218,7 @@ class Session {
   template <typename R>
   httplib::Result MakeAuthPost(
       const R& request, std::string content_type = "application/json") const {
+    rate_limiter_->Wait();
     constexpr bool has_to_json =
         requires(const R& r, nlohmann::json j) { j = r.body; };
 
@@ -223,6 +237,7 @@ class Session {
   template <typename R>
   httplib::Result MakeAuthPatch(
       const R& request, std::string content_type = "application/json") const {
+    rate_limiter_->Wait();
     const nlohmann::json j = request.body;
     return client_->Patch(
         kBasePath + request.FormattedPath(),
@@ -247,5 +262,6 @@ class Session {
  private:
   std::string token_;
   std::shared_ptr<IClient> client_;
+  std::unique_ptr<RateLimiter> rate_limiter_;
   static const std::string kBasePath;
 };

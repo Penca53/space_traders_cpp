@@ -6,14 +6,37 @@
 const std::string Session::kBasePath = "/v2";
 
 Session::Session()
-    : client_(std::make_shared<Client>("https://api.spacetraders.io")) {}
+    : client_(std::make_shared<Client>("https://api.spacetraders.io")),
+      rate_limiter_() {}
 Session::Session(const std::string& token)
     : token_(token),
-      client_(std::make_shared<Client>("https://api.spacetraders.io")) {}
-Session::Session(std::shared_ptr<IClient> client)
-    : client_(std::move(client)) {}
-Session::Session(std::shared_ptr<IClient> client, const std::string& token)
-    : token_(token), client_(std::move(client)) {}
+      client_(std::make_shared<Client>("https://api.spacetraders.io")),
+      rate_limiter_(std::make_unique<RateLimiter>()) {}
+Session::Session(const std::shared_ptr<IClient> client)
+    : client_(std::move(client)),
+      rate_limiter_(std::make_unique<RateLimiter>()) {}
+Session::Session(const std::shared_ptr<IClient> client,
+                 const std::string& token)
+    : token_(token),
+      client_(std::move(client)),
+      rate_limiter_(std::make_unique<RateLimiter>()) {}
+Session::Session(std::unique_ptr<RateLimiter> rate_limiter)
+    : client_(std::make_shared<Client>("https://api.spacetraders.io")),
+      rate_limiter_(std::move(rate_limiter)) {}
+Session::Session(const std::string& token,
+                 std::unique_ptr<RateLimiter> rate_limiter)
+    : token_(token),
+      client_(std::make_shared<Client>("https://api.spacetraders.io")),
+      rate_limiter_(std::move(rate_limiter)) {}
+Session::Session(const std::shared_ptr<IClient> client,
+                 std::unique_ptr<RateLimiter> rate_limiter)
+    : client_(std::move(client)), rate_limiter_(std::move(rate_limiter)) {}
+Session::Session(const std::shared_ptr<IClient> client,
+                 const std::string& token,
+                 std::unique_ptr<RateLimiter> rate_limiter)
+    : token_(token),
+      client_(std::move(client)),
+      rate_limiter_(std::move(rate_limiter)) {}
 
 bool Session::IsAPIOnline() const {
   const Result<StatusResponse, RequestError> status_res =
