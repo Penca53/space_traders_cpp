@@ -1,4 +1,4 @@
-cmake/
+build/
 space_traders_file.json
 .vscode
 in.txt
